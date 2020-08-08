@@ -164,6 +164,31 @@ def create_app(test_config=None):
             'id': student_id
         }), 200
 
+    @app.route('/student/search', methods=['GET','POST'])
+    def search_businesses():
+        if request.method == 'GET':
+            return render_template("search.html")
+
+        search_term = request.form.get('search_term')
+        businesses = Business.query.filter(Business.name.ilike('%{}%'.format(search_term))).all()
+        
+        if len(businesses) == 0:
+            abort(404)
+
+        data=[]
+        for business in businesses:
+            data.append({
+                "id": business.id,
+                "name": business.name,
+                "skills": business.skills
+            })
+
+        return jsonify({
+            'success': True,
+            'count': len(businesses),
+            'data': data
+        })
+
     #_____________________________business endpoints__________________________________
 
     @app.route('/profile/business/create', methods=['GET','POST'])
@@ -211,7 +236,7 @@ def create_app(test_config=None):
             }), 200
         except:
             abort(422)
-    @app.route('/profile/business/<int:business_id/display', methods=['GET'])
+    @app.route('/profile/business/<int:business_id>/display', methods=['GET'])
     def display_business_profile(business_id):
         return render_template('business_profile_business_view.html')
     @app.route('/profile/business/<int:business_id>', methods=['GET'])
@@ -314,6 +339,30 @@ def create_app(test_config=None):
             'success': True,
             'id': business_id
         }), 200
+
+    @app.route('/business/search', methods=['GET','POST'])
+    def search_students():
+        ifi request.method == 'GET':
+            return render_template('search.html')
+        search_term = request.form.get('search_term')
+        students = Student.query.filter(Student.name.ilike('%{}%'.format(search_term))).all()
+        
+        if len(students) == 0:
+            abort(404)
+
+        data=[]
+        for student in students:
+            data.append({
+                "id": student.id,
+                "name": student.name,
+                "interests": student.interests
+            })
+
+        return jsonify({
+            'success': True,
+            'count': len(students),
+            'data': data
+        })
 
 
     #___________________________endpoints for everyone!________________________________
