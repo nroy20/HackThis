@@ -12,29 +12,59 @@
         <form id="form">
             <h3>
                 Name:
-                <input type="text" id="title" name="title" />
+                <input type="text" id="name"/>
             </h3>
             <h3>
                 Email:
-                <input type="text" id="release_date" name="release date" />
+                <input type="text" id="email"/>
             </h3>
             <h3>
                 Zip Code:
-                <input type="text" id="release_date" name="release date" />
+                <input type="text" id="zip_code"/>
             </h3>
             <h3>
                 Interests:
-                <input type="text" id="release_date" name="release date" />
+                <input type="text" id="interests"/>
             </h3>
             <h3>
                 Qualifications:
-                <input type="text" id="release_date" name="release date" />
+                <input type="text" id="qualifications"/>
             </h3>
         </form>
         <a href='/profile/student/1/display'>
-            <button class="submit" data-id="{{ movie_id }}">Submit</button>
+            <button class="submit" data-id="{{ student_id }}">Update</button>
         </a>
         <a href='/'>
             <button>Back to home</button>
         </a>
+    </body>
+    <script>
+        const button = document.querySelector('.submit');
+            button.onclick = function(e) {
+                const updateId = e.target.dataset['id']
+                fetch('/profile/student/' + updateId + '/edit', {
+                    method: 'PATCH',
+                    body: JSON.stringify({
+                        'name': document.getElementById('name').value,
+                        'email': document.getElementById('email').value,
+                        'zip_code': document.getElementById('zip_code').value,
+                        'interests': document.getElementById('interests').value,
+                        'qualifications': document.getElementById('qualifications').value
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(function(response){
+                    return response.text();
+                }) 
+                .then(function(jsonResponse) {
+                    document.getElementById("error").className = 'hidden';
+                })
+                .catch(function(e) {
+                    console.log(e)
+                    document.getElementById("error").className = '';
+                })
+            }
+    </script>
 </html>
