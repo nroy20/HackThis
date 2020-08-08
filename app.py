@@ -345,8 +345,11 @@ def create_app(test_config=None):
     @app.route('/business/search', methods=['GET','POST'])
     def search_students():
         if request.method == 'GET':
-            return render_template('search.html')
-        search_term = request.form.get('search_term')
+            return render_template('search_business.html')
+            
+        body = request.get_json()
+        search_term = body.get('search_term')
+
         students = Student.query.filter(Student.name.ilike('%{}%'.format(search_term))).all()
         
         if len(students) == 0:

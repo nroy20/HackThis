@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <title>Find Students</title>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <style>
+      .hidden {
+          display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div>
+      <form id="form">
+        <label for="keyword"> Keywords:</label>
+        <input type="text" id="keywords">
+        <label for="zipcode"> Zip Code:</label>
+        <input type="text" id="zipcode">
+        <select id = "skill">
+          <option value= "0">Select Skills:</option>
+          <option value = "1">Skill 1</option>
+          <option value = "2">Skill 2</option>
+          <option value = "3">Skill 3</option>
+        </select>
+      </form>
+      <button class="submit">Submit</button>
+    </div>
+    <div id="error" class="hidden">Something went wrong!</div>
+    <div>
+      <label>Results</label>
+      <div id = "data"></div>
+    </div>
+
+    <script>
+      function appendData(results) {
+        var container = document.getElementById("data");
+        var data = results.data
+        for (var i = 0; i < results.count; i++) {
+          var div = document.createElement("div");
+          div.innerHTML = "name: " + data[i].name;
+          container.appendChild(div);
+        }
+      }
+      const button = document.querySelector('.submit');
+      button.onclick = function(e) {
+        fetch('/business/search', {
+          method: 'POST',
+          body: JSON.stringify({
+            'search_term': document.getElementById('keywords').value
+          }),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        .then(function(response){
+          return response.json();
+        })
+        .then(function(data) {
+          appendData(data);
+          console.log(data);
+          document.getElementById("error").className = 'hidden';
+        })
+        .catch(function(e) {
+          console.log(e)
+          document.getElementById("error").className = '';
+        });
+      }
+    </script>
+  </body>
+</html>
