@@ -1,19 +1,20 @@
-<!DOCTYPE html>
-
 <html>
   <head>
     <title>Find Businesses</title>
     <link rel="stylesheet" type="text/css" href="style.css"/>
+    <style>
+      .hidden {
+          display: none;
+      }
+    </style>
   </head>
 
   <body>
-
     <div>
-
-      <form>
-        <label for="keyword"> Keyword:</label>
-        <input type="text" id="keyword">
-        <label for="zipcode"> Zipcode:</label>
+      <form id="form">
+        <label for="keyword"> Keywords:</label>
+        <input type="text" id="keywords">
+        <label for="zipcode"> Zip Code:</label>
         <input type="text" id="zipcode">
         <select id = "interest">
           <option value= "0">Select Interest:</option>
@@ -21,10 +22,10 @@
           <option value = "2">Interest 2</option>
           <option value = "3">Interest 3</option>
         </select>
-        <input type="submit" value="Submit">
       </form>
+      <button class="submit">Submit</button>
     </div>
-
+    <div id="error" class="hidden">Something went wrong!</div>
     <div>
       <ul>
         <li>
@@ -34,7 +35,26 @@
     </div>
 
     <script>
-
+      const button = document.querySelector('.submit');
+      button.onclick = function(e) {
+        fetch('/student/search', {
+          method: 'POST',
+          body: JSON.stringify({
+            'search_term': document.getElementById('keywords')
+          }),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        .then(function(jsonResponse) {
+          console.log(jsonResponse)
+          document.getElementById("error").className = 'hidden';
+        })
+        .catch(function(e) {
+          console.log(e)
+          document.getElementById("error").className = '';
+        })
+      }
     </script>
   </body>
 </html>

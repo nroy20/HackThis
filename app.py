@@ -169,7 +169,9 @@ def create_app(test_config=None):
         if request.method == 'GET':
             return render_template("search.html")
 
-        search_term = request.form.get('search_term')
+        body = request.get_json()
+        search_term = body.get('search_term')
+        
         businesses = Business.query.filter(Business.name.ilike('%{}%'.format(search_term))).all()
         
         if len(businesses) == 0:
@@ -188,7 +190,7 @@ def create_app(test_config=None):
             'count': len(businesses),
             'data': data
         })
-
+        
     #_____________________________business endpoints__________________________________
 
     @app.route('/profile/business/create', methods=['GET','POST'])
