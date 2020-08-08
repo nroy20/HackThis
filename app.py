@@ -342,7 +342,7 @@ def create_app(test_config=None):
 
     @app.route('/business/search', methods=['GET','POST'])
     def search_students():
-        ifi request.method == 'GET':
+        if request.method == 'GET':
             return render_template('search.html')
         search_term = request.form.get('search_term')
         students = Student.query.filter(Student.name.ilike('%{}%'.format(search_term))).all()
