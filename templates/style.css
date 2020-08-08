@@ -1,0 +1,13 @@
+#header{
+  text-align: center
+}
+
+.float-container {
+  padding: 20px;
+}
+
+.float-child {
+  width: 45%;
+  float: left;
+  padding: 20px;
+}  
