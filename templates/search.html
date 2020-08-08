@@ -27,33 +27,43 @@
     </div>
     <div id="error" class="hidden">Something went wrong!</div>
     <div>
-      <ul>
-        <li>
-          Results
-        </li>
-      </ul>
+      <label>Results</label>
+      <div id = "data"></div>
     </div>
 
     <script>
+      function appendData(results) {
+        var container = document.getElementById("data");
+        var data = results.data
+        for (var i = 0; i < results.count; i++) {
+          var div = document.createElement("div");
+          div.innerHTML = "name: " + data[i].name;
+          container.appendChild(div);
+        }
+      }
       const button = document.querySelector('.submit');
       button.onclick = function(e) {
         fetch('/student/search', {
           method: 'POST',
           body: JSON.stringify({
-            'search_term': document.getElementById('keywords')
+            'search_term': document.getElementById('keywords').value
           }),
           headers: {
             'Content-Type': 'application/json'
           }
         })
-        .then(function(jsonResponse) {
-          console.log(jsonResponse)
+        .then(function(response){
+          return response.json();
+        })
+        .then(function(data) {
+          appendData(data);
+          console.log(data);
           document.getElementById("error").className = 'hidden';
         })
         .catch(function(e) {
           console.log(e)
           document.getElementById("error").className = '';
-        })
+        });
       }
     </script>
   </body>
