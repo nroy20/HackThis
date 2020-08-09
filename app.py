@@ -1,10 +1,13 @@
+import json
+import os
+import requests
+import geopy
 from flask import Flask, render_template, request, jsonify, abort, session
 from flask_cors import CORS
 from functools import wraps
 from models import Student, Business, setup_db
-import json
-import os
-import requests
+from geopy.geocoders import GoogleV3
+
 
 def create_app(test_config=None):
     app = Flask(__name__)
@@ -22,7 +25,7 @@ def create_app(test_config=None):
 
     @app.route('/dashboard/student/<int:student_id>/display', methods=['GET'])
     def display_student_dashboard(student_id):
-        return render_template('student_dashboard.html')
+        return render_template('student_dashboard.html', student_id=student_id)
     @app.route('/dashboard/student/<int:student_id>', methods=['GET'])
     def get_student_dashboard(student_id):
         if student_id == 0:
@@ -32,11 +35,28 @@ def create_app(test_config=None):
         if not student:
             abort(404)
 
+        all_businesses = Business.query.filter(Business.address != None).all()
+        businesses_in_zip_code = []
+        geolocator = geocode.GoogleV3(api_key='APIKEY')
+
+        for business in all_businesses:
+            #plug address into api
+            if (business_zip_code == student.zip_code):
+                location = geolocator.geocode(business.address, timeout=15)
+                businesses_in_zip_code.append({
+                    'id': business.id,
+                    'name': business.name,
+                    'address': business.address,
+                    'latitude': location.latitude,
+                    'longitude': location.longitude
+                })
+
         return jsonify({
             'success': True,
             'id': student_id,
             'name': student.name,
-            'zip_code': student.zip_code
+            'zip_code': student.zip_code, 
+            'businesses_in_zip_code': businesses_in_zip_code
         }), 200
 
     @app.route('/profile/student/create', methods=['GET', 'POST'])
@@ -77,7 +97,7 @@ def create_app(test_config=None):
             abort(422)
     @app.route('/profile/student/<int:student_id>/display', methods=['GET'])
     def display_student_profile(student_id):
-        return render_template('my_profile.html')
+        return render_template('my_profile.html', student_id=student_id)
     @app.route('/profile/student/<int:student_id>', methods=['GET'])
     def get_student_profile(student_id):
         if student_id == 0:
@@ -100,7 +120,7 @@ def create_app(test_config=None):
     @app.route('/profile/student/<int:student_id>/edit', methods=['GET', 'PATCH'])
     def update_student_profile(student_id):
         if request.method == 'GET':
-            return render_template('update_student_form.html')
+            return render_template('update_student_form.html', student_id=student_id)
 
         if student_id == 0:
             abort(400)
@@ -240,9 +260,9 @@ def create_app(test_config=None):
             abort(422)
     @app.route('/profile/business/<int:business_id>/display', methods=['GET'])
     def display_business_profile(business_id):
-        return render_template('business_profile_business_view.html')
+        return render_template('business_profile_business_view.html', business_id=business_id)
     @app.route('/profile/business/<int:business_id>', methods=['GET'])
-    def get_business_profile():
+    def get_business_profile(business_id):
         if business_id == 0:
             abort(400)
 
@@ -252,7 +272,7 @@ def create_app(test_config=None):
 
         return jsonify({
             'success': True,
-            'id': business,
+            'id': business.id,
             'name': business.name,
             'email': business.email,
             'zip_code': business.zip_code,
@@ -263,10 +283,10 @@ def create_app(test_config=None):
             'skills': business.skills
         }), 200
 
-    @app.route('/profile/business/<int:business_id>', methods=['GET','PATCH'])
+    @app.route('/profile/business/<int:business_id>/edit', methods=['GET','PATCH'])
     def update_business_profile(business_id):
         if request.method == 'GET':
-            return render_template('update_business_form.html')
+            return render_template('update_business_form.html', business_id=business_id)
 
         if business_id == 0:
             abort(400)
@@ -294,7 +314,7 @@ def create_app(test_config=None):
             if zip_code:
                 business.zip_code = zip_code
             if goals:
-                business.interests= interests
+                business.goals = goals
             if website:
                 business.qualifications = qualifications
             if address:
@@ -304,14 +324,14 @@ def create_app(test_config=None):
             if skills:
                 business.skills = skills
 
-            if not student:
+            if not business:
                 abort(404)
 
-            student.update()
+            business.update()
 
             return jsonify({
                 'success': True,
-                'id': business,
+                'id': business.id,
                 'name': business.name,
                 'email': business.email,
                 'zip_code': business.zip_code,
@@ -346,7 +366,7 @@ def create_app(test_config=None):
     def search_students():
         if request.method == 'GET':
             return render_template('search_business.html')
-            
+
         body = request.get_json()
         search_term = body.get('search_term')
 

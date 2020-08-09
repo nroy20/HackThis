@@ -3,15 +3,38 @@
 <html>
   <head>
     <title>My Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <style>
+      #header{
+        text-align: center
+      }
+
+      .float-container {
+        padding: 20px;
+      }
+
+      .float-child {
+        width: 45%;
+        float: left;
+        padding: 20px;
+      }  
+
+      #map {
+        width: 600px;
+        height: 400px;
+      }
+
+      .top-bar {
+        text-align:right;
+      }
+    </style>
   </head>
 
   <body>
 
-    <div>
-      <button onclick="window.location.href='search.html'">
-        Search
-      </button>
+    <div class="top-bar">
+      <a href="/student/search">
+        <button>Search</button>
+      </a>
       
       <a href='/profile/student/1/display'>
         <button>
@@ -19,13 +42,10 @@
         </button>
       </a>
       
-  
-      <button>
-        Sign Out
-      </button>
+      <button>Sign Out</button>
     </div>
 
-    <h1 id="header">My Dashboard</h1>
+    <h1 id="header" data-id="{{ student_id }}">My Dashboard</h1>
 
     <div class="float-container">
 
@@ -40,15 +60,77 @@
       </div>
       
       <div class="float-child">
-        <div class="map">
-          <p>Google API will go here</p>
+        <div id="map">
         </div>
       </div>
-      
     </div>
-
     <script>
+      function initMap(){
+        //initialize map
+          map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 14
+        });
+        infoWindow = new google.maps.InfoWindow;
 
-    </script>
+        //request user's location
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Location found.');
+            infoWindow.open(map);
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        }
+
+        //Function to add markers and content to the popup
+        function addMarker(prop) {
+          var marker = new google.maps.Marker({
+           position: prop.coordinates, 
+           map:map, 
+          });
+          if(prop.iconImage) { marker.setIcon(prop.iconImage); }
+          if(prop.content) { 
+          var information = new google.maps.InfoWindow({
+          content: prop.content
+        });
+      
+        marker.addListener('click', function() {
+        information.open(map, marker);
+            });
+          }
+        }
+
+        //Adding an example marker with the function
+        addMarker({
+          coordinates:{lat: 41.825590, lng: -87.848230},
+          content:'<h4>Brookfield Public Library</h4>'
+        });
+      }
+  </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBH7pSV9JwtPJkrpUQ2nqmI9PBNrVMv0Kk&callback=initMap">
+  </script>
+  <script>
+    window.onload = function(e) {
+      var header = document.getElementById("header")
+      var studentId = header.getAttribute("data-id")
+      fetch('/dashboard/student/' + studentId, {
+                method: "GET",
+            })
+            .then(function(response){
+                return response.text();
+            }) 
+            .then(function(jsonResponse) {
+                console.log(jsonResponse);
+            })
+      }
+  </script>
   </body>
 </html>
