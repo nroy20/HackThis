@@ -14,15 +14,17 @@
   <body>
     <div id="error" class="hidden">Something went wrong!</div>
 
-    <h1 id="header">My Profile</h1>
+    <h1 id="header" data-id="{{ student_id }}">My Profile</h1>
 
-    <div id = data></div>
+    <div id = "data"></div>
 
     <div>
       <a href="/profile/student/1/edit">
         <button>Update</button>
       </a>
-      <button>Delete</button>
+      <a href="/">
+        <button class="delete-button" data-id="{{ student_id }}">Delete</button>
+      </a>
     </div>
 
     <script>
@@ -34,7 +36,7 @@
       function appendData(results) {
         var divs = [
           createDiv("name", results.name),
-          createDiv("status", results.status),
+          createDiv("zip code", results.zip_code),
           createDiv("email", results.email),
           createDiv("interests", results.interests),
           createDiv("qualifications", results.qualifications)
@@ -45,20 +47,38 @@
           container.appendChild(divs[i])
         }
       }
-      window.onload = function() {
-      fetch('/profile/student/1')
-        .then(function(response){
-          return response.json();
-        }) 
-        .then(function(data) {
-          appendData(data);
-          console.log(data);
+      
+      window.onload = function(e) {
+        var header = document.getElementById("header")
+        var studentId = header.getAttribute("data-id")
+        fetch('/profile/student/' + studentId, )
+          .then(function(response){
+            return response.json();
+          }) 
+          .then(function(data) {
+            appendData(data);
+            console.log(data);
+            document.getElementById("error").className = 'hidden';
+          })
+          .catch(function(e) {
+            console.log(e)
+            document.getElementById("error").className = '';
+          });              
+      }
+      
+      const button = document.querySelector('.delete-button');
+      button.onclick = function(e) {
+        const studentId = e.target.dataset['id'];
+        fetch('/profile/student/' + studentId, {
+          method: 'DELETE'
+        })
+        .then(function() {
           document.getElementById("error").className = 'hidden';
         })
         .catch(function(e) {
           console.log(e)
           document.getElementById("error").className = '';
-        });              
+        })
       }
     </script>
   </body>
