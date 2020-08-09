@@ -1,0 +1,83 @@
+<html>
+    <head>
+        <title>New Business Form</title>
+        <h1>Add New Business</h1>
+        <style>
+            .hidden {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="error" class="hidden">Something went wrong!</div>
+        <form id="form">
+            <h3>
+                Name:
+                <input type="text" id="name"/>
+            </h3>
+            <h3>
+                Email:
+                <input type="text" id="email"/>
+            </h3>
+            <h3>
+                Zip Code:
+                <input type="text" id="zip_code"/>
+            </h3>
+            <h3>
+                Skills:
+                <input type="text" id="skills"/>
+            </h3>
+            <h3>
+                Goals:
+                <input type="text" id="goals"/>
+            </h3>
+            <h3>
+                Website:
+                <input type="text" id="website"/>
+            </h3>
+            <h3>
+                Address:
+                <input type="text" id="address"/>
+            </h3>
+            <h3>
+                Description:
+                <input type="text" id="description"/>
+            </h3>
+        </form>
+        <button class="submit">Submit</button>
+        <a href='/'>
+            <button>Back to home</button>
+        </a>
+    </body>
+    <script>
+        const button = document.querySelector('.submit');
+            button.onclick = function(e) {
+                fetch('/profile/business/create', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        'name': document.getElementById('name').value,
+                        'email': document.getElementById('email').value,
+                        'zip_code': document.getElementById('zip_code').value,
+                        'address': document.getElementById('address').value,
+                        'goals': document.getElementById('goals').value,
+                        'website': document.getElementById('website').value,
+                        'description': document.getElementById('description').value,
+                        'skills': document.getElementById('skills').value
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(function(response){
+                    return response.text();
+                }) 
+                .then(function(jsonResponse) {
+                    document.getElementById("error").className = 'hidden';
+                })
+                .catch(function(e) {
+                    console.log(e)
+                    document.getElementById("error").className = '';
+                })
+            }
+    </script>
+</html>
