@@ -30,7 +30,7 @@ def create_app(test_config=None):
     auth0 = oauth.register(
         'auth0',
         client_id='yzDykpaQCAi0qMfaYnbD3pwH6nQiRgSs',
-        client_secret='YOUR_CLIENT_SECRET',
+        client_secret='T5ggzfkhmQMFIDj2TeHnpu75Gqn8n2UEcABKIRImMkq0N8czZ0SYFO7jYbIiTPC-',
         api_base_url='https://hackthistest.us.auth0.com',
         access_token_url='https://hackthistest.us.auth0.com/oauth/token',
         authorize_url='https://hackthistest.us.auth0.com/authorize',
