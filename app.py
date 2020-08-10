@@ -57,7 +57,7 @@ def create_app(test_config=None):
 
     @app.route('/login')
     def login():
-        return auth0.authorize_redirect(redirect_uri='https://localhost:8080/login-results')
+        return auth0.authorize_redirect(redirect_uri='https://hackthis2020.herokuapp.com/login-results')
 
     def requires_auth(f):
         @wraps(f)
