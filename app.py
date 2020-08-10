@@ -2,16 +2,22 @@ import json
 import os
 import requests
 import geopy
-from flask import Flask, render_template, request, jsonify, abort, session
+from flask import Flask, render_template, request, jsonify, abort, session, redirect, url_for
 from flask_cors import CORS
 from functools import wraps
 from models import Student, Business, setup_db
 from geopy.geocoders import GoogleV3
+from os import environ as env
+from werkzeug.exceptions import HTTPException
+from dotenv import load_dotenv, find_dotenv
+from authlib.integrations.flask_client import OAuth
+from six.moves.urllib.parse import urlencode
 
 
 def create_app(test_config=None):
     app = Flask(__name__)
     setup_db(app)
+    oauth = OAuth(app)
     app.secret_key = "temp key"
 
     @app.after_request
@@ -21,6 +27,64 @@ def create_app(test_config=None):
         response.headers.add('Access-Control-Allow-Credentials', 'true')
         return response
 
+    auth0 = oauth.register(
+        'auth0',
+        client_id='yzDykpaQCAi0qMfaYnbD3pwH6nQiRgSs',
+        client_secret='YOUR_CLIENT_SECRET',
+        api_base_url='https://hackthistest.us.auth0.com',
+        access_token_url='https://hackthistest.us.auth0.com/oauth/token',
+        authorize_url='https://hackthistest.us.auth0.com/authorize',
+        client_kwargs={
+            'scope': 'openid profile email',
+        },
+    )
+
+    @app.route('/login-results')
+    def callback_handling():
+        # Handles response from token endpoint
+        auth0.authorize_access_token()
+        resp = auth0.get('userinfo')
+        userinfo = resp.json()
+
+        # Store the user information in flask session.
+        session['jwt_payload'] = userinfo
+        session['profile'] = {
+            'user_id': userinfo['sub'],
+            'name': userinfo['name'],
+            'picture': userinfo['picture']
+        }
+        return redirect('/dashboard')
+
+    @app.route('/login')
+    def login():
+        return auth0.authorize_redirect(redirect_uri='https://localhost:8080/login-results')
+
+    def requires_auth(f):
+        @wraps(f)
+        def decorated(*args, **kwargs):
+            if 'profile' not in session:
+            # Redirect to Login page here
+                return redirect('/')
+            return f(*args, **kwargs)
+
+        return decorated
+
+    @app.route('/dashboard')
+    @requires_auth
+    def dashboard():
+        return render_template('student_dashboard.html',
+                            userinfo=session['profile'],
+                            userinfo_pretty=json.dumps(session['jwt_payload'], indent=4))
+
+    # /server.py
+
+    @app.route('/logout')
+    def logout():
+        # Clear session stored data
+        session.clear()
+        # Redirect user to logout endpoint
+        params = {'returnTo': url_for('home', _external=True), 'client_id': 'yzDykpaQCAi0qMfaYnbD3pwH6nQiRgSs'}
+        return redirect(auth0.api_base_url + '/v2/logout?' + urlencode(params))
     #______________________________student endpoints___________________________________
 
     @app.route('/dashboard/student/<int:student_id>/display', methods=['GET'])
@@ -211,6 +275,9 @@ def create_app(test_config=None):
             'data': data
         })
         
+    @app.route('/student/login', methods=['GET'])
+    def login_buttons():
+        return render_template('student_login.html')
     #_____________________________business endpoints__________________________________
 
     @app.route('/profile/business/create', methods=['GET','POST'])
