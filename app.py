@@ -55,27 +55,8 @@ def create_app(test_config=None):
         }
         return redirect('/dashboard')
 
-    @app.route('/signup-results')
-    def callback_handling():
-        # Handles response from token endpoint
-        auth0.authorize_access_token()
-        resp = auth0.get('userinfo')
-        userinfo = resp.json()
-
-        # Store the user information in flask session.
-        session['jwt_payload'] = userinfo
-        session['profile'] = {
-            'user_id': userinfo['sub'],
-            'name': userinfo['name'],
-            'picture': userinfo['picture']
-        }
-        return redirect('/dashboard')
-
     @app.route('/login')
     def login():
-        return auth0.authorize_redirect(redirect_uri='https://hackthis2020.herokuapp.com/login-results')
-    @app.route('/signup')
-    def signup():
         return auth0.authorize_redirect(redirect_uri='https://hackthis2020.herokuapp.com/login-results')
 
     def requires_auth(f):
@@ -92,13 +73,6 @@ def create_app(test_config=None):
     @requires_auth
     def dashboard():
         return render_template('student_dashboard.html',
-                            userinfo=session['profile'],
-                            userinfo_pretty=json.dumps(session['jwt_payload'], indent=4))
-
-    @app.route('/addinfo')
-    @requires_auth
-    def dashboard():
-        return render_template('new_student_form.html',
                             userinfo=session['profile'],
                             userinfo_pretty=json.dumps(session['jwt_payload'], indent=4))
 
