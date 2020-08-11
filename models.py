@@ -23,6 +23,7 @@ class Student(db.Model):
     zip_code = db.Column(db.String)
     interests = db.Column(db.String)
     qualifications = db.Column(db.String)
+    auth_id = db.Column(db.String, unique=True)
 
     def format(self):
         return {

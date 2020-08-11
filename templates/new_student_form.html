@@ -9,6 +9,7 @@
         </style>
     </head>
     <body>
+        <data id = "sub" value="{{ userinfo['sub'] }}"></data>
         <div id="error" class="hidden">Something went wrong!</div>
         <form id="form">
             <h3>
@@ -47,7 +48,8 @@
                         'email': document.getElementById('email').value,
                         'zip_code': document.getElementById('zip_code').value,
                         'interests': document.getElementById('interests').value,
-                        'qualifications': document.getElementById('qualifications').value
+                        'qualifications': document.getElementById('qualifications').value,
+                        'auth_id': document.getElementById('sub').value
                     }),
                     headers: {
                         'Content-Type': 'application/json'
@@ -57,6 +59,7 @@
                     return response.text();
                 }) 
                 .then(function(jsonResponse) {
+                    console.log(jsonResponse)
                     document.getElementById("error").className = 'hidden';
                 })
                 .catch(function(e) {

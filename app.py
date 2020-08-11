@@ -160,13 +160,15 @@ def create_app(test_config=None):
             zip_code = body.get('zip_code')
             interests = body.get('interests')
             qualifications = body.get('qualifications')
+            auth_id = body.get('auth_id')
 
             student = Student(
                 name=name,
                 email=email,
                 zip_code=zip_code,
                 interests=interests,
-                qualifications=qualifications
+                qualifications=qualifications,
+                auth_id=auth_id
             )
 
             if not student:
@@ -180,7 +182,8 @@ def create_app(test_config=None):
                 'email': student.email,
                 'zip_code': student.zip_code,
                 'interests': student.interests,
-                'qualifications': student.qualifications
+                'qualifications': student.qualifications,
+                'auth_id': student.auth_id
             }), 200
         except:
             abort(422)
