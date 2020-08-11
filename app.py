@@ -40,7 +40,7 @@ def create_app(test_config=None):
     )
 
     @app.route('/login-results')
-    def callback_handling():
+    def login_handling():
         # Handles response from token endpoint
         auth0.authorize_access_token()
         resp = auth0.get('userinfo')
@@ -55,9 +55,29 @@ def create_app(test_config=None):
         }
         return redirect('/dashboard')
 
+    @app.route('/signup-results')
+    def signup_handling():
+        # Handles response from token endpoint
+        auth0.authorize_access_token()
+        resp = auth0.get('userinfo')
+        userinfo = resp.json()
+
+        # Store the user information in flask session.
+        session['jwt_payload'] = userinfo
+        session['profile'] = {
+            'user_id': userinfo['sub'],
+            'name': userinfo['name'],
+            'picture': userinfo['picture']
+        }
+        return redirect('/addinfo')
+
     @app.route('/login')
     def login():
         return auth0.authorize_redirect(redirect_uri='https://hackthis2020.herokuapp.com/login-results')
+
+    @app.route('/signup')
+    def signup():
+        return auth0.authorize_redirect(redirect_uri='https://hackthis2020.herokuapp.com/signup-results')
 
     def requires_auth(f):
         @wraps(f)
@@ -76,7 +96,12 @@ def create_app(test_config=None):
                             userinfo=session['profile'],
                             userinfo_pretty=json.dumps(session['jwt_payload'], indent=4))
 
-    # /server.py
+    @app.route('/addinfo')
+    @requires_auth
+    def addinfo():
+        return render_template('new_student_form.html',
+                            userinfo=session['profile'],
+                            userinfo_pretty=json.dumps(session['jwt_payload'], indent=4))
 
     @app.route('/logout')
     def logout():
