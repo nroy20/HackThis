@@ -306,6 +306,22 @@ def create_app(test_config=None):
     @app.route('/student/login', methods=['GET'])
     def login_buttons():
         return render_template('student_login.html')
+
+    #for testing purposes
+    '''
+    @app.route('/listallstudents', methods=['GET'])
+    def listemall():
+        students = Student.query.all()
+        data = []
+        for student in students:
+            data.append({
+                "id": student.id
+            })
+        return jsonify({
+            'success': True,
+            'data': data
+        })
+    '''
     #_____________________________business endpoints__________________________________
 
     @app.route('/profile/business/create', methods=['GET','POST'])
