@@ -34,7 +34,7 @@
     </div>
 
     <div>
-      <a href="/profile/student/{{ student_id }}/edit">
+      <a href="/profile/student/edit">
         <button>Update</button>
       </a>
       <a href="/">
@@ -76,7 +76,7 @@
       window.onload = function(e) {
         var header = document.getElementById("header")
         var studentId = header.getAttribute("data-id")
-        fetch('/profile/student/' + studentId, )
+        fetch('/profile/student', )
           .then(function(response){
             return response.json();
           }) 
@@ -94,7 +94,7 @@
       const button = document.querySelector('.delete-button');
       button.onclick = function(e) {
         const studentId = e.target.dataset['id'];
-        fetch('/profile/student/' + studentId, {
+        fetch('/profile/student', {
           method: 'DELETE'
         })
         .then(function() {

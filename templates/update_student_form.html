@@ -31,7 +31,7 @@
                 <input type="text" id="qualifications"/>
             </h3>
         </form>
-        <a href='/profile/student/{{ student_id }}/display'>
+        <a href='/profile/student/display'>
             <button class="submit" data-id="{{ student_id }}">Update</button>
         </a>
         <a href='/'>
@@ -42,7 +42,7 @@
         const button = document.querySelector('.submit');
             button.onclick = function(e) {
                 const updateId = e.target.dataset['id']
-                fetch('/profile/student/' + updateId + '/edit', {
+                fetch('/profile/student/edit', {
                     method: 'PATCH',
                     body: JSON.stringify({
                         'name': document.getElementById('name').value,
