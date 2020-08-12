@@ -14,6 +14,8 @@ from authlib.integrations.flask_client import OAuth
 from six.moves.urllib.parse import urlencode
 
 
+#def get_id_from_auth_id():
+
 def create_app(test_config=None):
     app = Flask(__name__)
     setup_db(app)
@@ -113,6 +115,7 @@ def create_app(test_config=None):
     #______________________________student endpoints___________________________________
 
     @app.route('/dashboard/student/<int:student_id>/display', methods=['GET'])
+    @requires_auth
     def display_student_dashboard(student_id):
         return render_template('student_dashboard.html', student_id=student_id)
     @app.route('/dashboard/student/<int:student_id>', methods=['GET'])
@@ -532,13 +535,16 @@ def create_app(test_config=None):
             "error": 400,
             "message": "bad request"
         }), 400
-    '''
-    @app.errorhandler(AuthError)
-    def error_auth(ex):
-        response = jsonify(ex.error)
-        response.status_code = ex.status_code
-        return response
-    '''
+
+    @app.errorhandler(403)
+    def bad_login(error):
+        return jsonify({
+            "success": False,
+            "error": 403,
+            "message": "bad login"
+        }), 403
+
+        
 
     return app
 
