@@ -18,6 +18,21 @@
 
     <div id = "data"></div>
 
+    <div class="profile-header">
+      <h1 id="name" style="text-align: left; margin-left: 20px"></h3>
+      <p style="text-align:left; margin-left: 20px;">Student Status</p>
+    </div>
+
+    <div class="float-container">
+      <div id="float-child", style="width:25%;">
+        <div id="about" class="widget"></div>
+      </div>
+      <div id="float-child">
+        <div id="qualifications" class="widget"></div>
+        <div id="interests" class="widget"></div>
+      </div>
+    </div>
+
     <div>
       <a href="/profile/student/{{ student_id }}/edit">
         <button>Update</button>
@@ -33,19 +48,29 @@
         div.innerHTML = description + ": " + data
         return div;
       }
+      function createH1(data) {
+        var header = document.createElement("H1")
+        header.innerHTML = data
+        return header;
+      }
       function appendData(results) {
         var divs = [
-          createDiv("name", results.name),
+          createH1(results.name),
           createDiv("zip code", results.zip_code),
           createDiv("email", results.email),
           createDiv("interests", results.interests),
           createDiv("qualifications", results.qualifications)
         ]
 
-        var container = document.getElementById("data");
-        for (var i = 0; i < divs.length; i++) {
-          container.appendChild(divs[i])
-        }
+        var container1 = document.getElementById("name");
+        var container2 = document.getElementById("about");
+        var container3 = document.getElementById("qualifications");
+        var container4 = document.getElementById("interests");
+        container1.appendChild(divs[0]);
+        container2.appendChild(divs[1]);
+        container2.appendChild(divs[2]);
+        container3.appendChild(divs[3]);
+        container4.appendChild(divs[4]);
       }
       
       window.onload = function(e) {
