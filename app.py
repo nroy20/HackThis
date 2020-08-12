@@ -24,6 +24,16 @@ def get_student_id_from_auth_id():
         abort(404)
     return student.id
 
+def get_business_id_from_auth_id():
+    business_profile = session['business_profile']
+    user_id = business_profile['user_id']
+    if not user_id:
+        abort(403)
+    business = Business.query.filter_by(auth_id=user_id).one_or_none()
+    if not business:
+        abort(404)
+    return business.id
+
 def create_app(test_config=None):
     app = Flask(__name__)
     setup_db(app)
@@ -48,6 +58,23 @@ def create_app(test_config=None):
             'scope': 'openid profile email',
         },
     )
+
+    
+    @app.route('/login')
+    def login():
+        return auth0.authorize_redirect(redirect_uri='https://hackthis2020.herokuapp.com/login-results')
+
+    @app.route('/signup')
+    def signup():
+        return auth0.authorize_redirect(redirect_uri='https://hackthis2020.herokuapp.com/signup-results')
+
+    @app.route('/login_business')
+    def business_login():
+        return auth0.authorize_redirect(redirect_uri='https://hackthis2020.herokuapp.com/login-results-business')
+
+    @app.route('/signup_business')
+    def business_signup():
+        return auth0.authorize_redirect(redirect_uri='https://hackthis2020.herokuapp.com/signup-results-business')
 
     @app.route('/login-results')
     def login_handling():
@@ -81,13 +108,38 @@ def create_app(test_config=None):
         }
         return redirect('/profile/student/create')
 
-    @app.route('/login')
-    def login():
-        return auth0.authorize_redirect(redirect_uri='https://hackthis2020.herokuapp.com/login-results')
+    @app.route('/login-results-business')
+    def business_login_handling():
+        # Handles response from token endpoint
+        auth0.authorize_access_token()
+        resp = auth0.get('userinfo')
+        userinfo = resp.json()
 
-    @app.route('/signup')
-    def signup():
-        return auth0.authorize_redirect(redirect_uri='https://hackthis2020.herokuapp.com/signup-results')
+        # Store the user information in flask session.
+        session['jwt_payload'] = userinfo
+        session['business_profile'] = {
+            'user_id': userinfo['sub'],
+            'name': userinfo['name'],
+            'picture': userinfo['picture']
+        }
+        return redirect('/profile/business/display')
+
+    @app.route('/signup-results-business')
+    def business_signup_handling():
+        # Handles response from token endpoint
+        auth0.authorize_access_token()
+        resp = auth0.get('userinfo')
+        userinfo = resp.json()
+
+        # Store the user information in flask session.
+        session['business_jwt_payload'] = userinfo
+        session['business_profile'] = {
+            'user_id': userinfo['sub'],
+            'name': userinfo['name'],
+            'picture': userinfo['picture']
+        }
+        return redirect('/profile/business/create')
+
 
     def requires_auth(f):
         @wraps(f)
@@ -95,6 +147,16 @@ def create_app(test_config=None):
             if 'profile' not in session:
             # Redirect to Login page here
                 return redirect('/login')
+            return f(*args, **kwargs)
+
+        return decorated
+
+    def requires_business_auth(f):
+        @wraps(f)
+        def decorated(*args, **kwargs):
+            if 'business_profile' not in session:
+            # Redirect to Login page here
+                return redirect('/login_business')
             return f(*args, **kwargs)
 
         return decorated
@@ -333,9 +395,10 @@ def create_app(test_config=None):
     #_____________________________business endpoints__________________________________
 
     @app.route('/profile/business/create', methods=['GET','POST'])
+    @requires_business_auth
     def create_business_profile():
         if request.method == 'GET':
-            return render_template('new_business_form.html')
+            return render_template('new_business_form.html', userinfo=session['business_profile'])
 
         body = request.get_json()
         try:
@@ -346,7 +409,8 @@ def create_app(test_config=None):
             website = body.get('website')
             address = body.get('address')
             description = body.get('description')
-            skills = body.get('skills')
+            skills = body.get('skills'),
+            auth_id = body.get('auth_id')
 
             business = Business(
                 name=name,
@@ -356,7 +420,8 @@ def create_app(test_config=None):
                 website=website,
                 address=address,
                 description=description,
-                skills=skills
+                skills=skills,
+                auth_id=auth_id
             )
 
             if not business:
@@ -373,15 +438,20 @@ def create_app(test_config=None):
                 'website': business.website,
                 'address': business.address,
                 'description': business.description,
-                'skills': business.skills
+                'skills': business.skills,
+                'auth_id': business.auth_id
             }), 200
         except:
             abort(422)
-    @app.route('/profile/business/<int:business_id>/display', methods=['GET'])
-    def display_business_profile(business_id):
+    @app.route('/profile/business/display', methods=['GET'])
+    @requires_business_auth
+    def display_business_profile():
+        business_id = get_business_id_from_auth_id()
         return render_template('business_profile_business_view.html', business_id=business_id)
-    @app.route('/profile/business/<int:business_id>', methods=['GET'])
-    def get_business_profile(business_id):
+    @app.route('/profile/business', methods=['GET'])
+    @requires_business_auth
+    def get_business_profile():
+        business_id = get_business_id_from_auth_id()
         if business_id == 0:
             abort(400)
 
@@ -402,8 +472,10 @@ def create_app(test_config=None):
             'skills': business.skills
         }), 200
 
-    @app.route('/profile/business/<int:business_id>/edit', methods=['GET','PATCH'])
-    def update_business_profile(business_id):
+    @app.route('/profile/business/edit', methods=['GET','PATCH'])
+    @requires_business_auth
+    def update_business_profile():
+        business_id = get_business_id_from_auth_id()
         if request.method == 'GET':
             return render_template('update_business_form.html', business_id=business_id)
 
@@ -411,6 +483,7 @@ def create_app(test_config=None):
             abort(400)
 
         business = Business.query.get(business_id)
+
         if not business:
             abort(404)
 
@@ -463,10 +536,10 @@ def create_app(test_config=None):
         except:
             abort(422)
         
-    @app.route('/profile/business/<int:business_id>', methods=['DELETE'])
-    def delete_business_profile(business_id):
-        if request.method == 'GET':
-            return render_template('home.html')
+    @app.route('/profile/business', methods=['DELETE'])
+    @requires_business_auth
+    def delete_business_profile():
+        business_id = get_business_id_from_auth_id()
         if business_id == 0:
             abort(400)
 
@@ -482,6 +555,7 @@ def create_app(test_config=None):
         }), 200
 
     @app.route('/business/search', methods=['GET','POST'])
+    @requires_business_auth
     def search_students():
         if request.method == 'GET':
             return render_template('search_business.html')
@@ -508,6 +582,9 @@ def create_app(test_config=None):
             'data': data
         })
 
+    @app.route('/business/login', methods=['GET'])
+    def business_login_buttons():
+        return render_template('business_login.html')
 
     #___________________________endpoints for everyone!________________________________
 

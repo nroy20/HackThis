@@ -9,6 +9,7 @@
         </style>
     </head>
     <body>
+        <div id="authid" class="hidden" data-id="{{userinfo['user_id']}}"></div>
         <div id="error" class="hidden">Something went wrong!</div>
         <form id="form">
             <h3>
@@ -44,13 +45,14 @@
                 <input type="text" id="description"/>
             </h3>
         </form>
-        <button class="submit">Submit</button>
-        <a href='/'>
-            <button>Back to home</button>
+        <a href='/profile/business/display'>
+            <button class="submit">Submit</button>
         </a>
     </body>
     <script>
         const button = document.querySelector('.submit');
+        var authDiv = document.getElementById("authid")
+        var authID = authDiv.getAttribute("data-id")
             button.onclick = function(e) {
                 fetch('/profile/business/create', {
                     method: 'POST',
@@ -62,7 +64,8 @@
                         'goals': document.getElementById('goals').value,
                         'website': document.getElementById('website').value,
                         'description': document.getElementById('description').value,
-                        'skills': document.getElementById('skills').value
+                        'skills': document.getElementById('skills').value,
+                        'auth_id': authID
                     }),
                     headers: {
                         'Content-Type': 'application/json'

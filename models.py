@@ -60,6 +60,7 @@ class Business(db.Model):
     address = db.Column(db.String)
     description = db.Column(db.String)
     skills = db.Column(db.String)
+    auth_id = db.Column(db.String, unique=True)
 
     def format(self):
         return {
@@ -71,7 +72,8 @@ class Business(db.Model):
             "website": self.website,
             "address": self.address,
             "description": self.description,
-            "skills": self.skills
+            "skills": self.skills,
+            "auth_id": self.auth_id
         }
 
     def insert(self):
