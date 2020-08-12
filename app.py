@@ -188,13 +188,15 @@ def create_app(test_config=None):
             }), 200
         except:
             abort(422)
-    @app.route('/profile/student/<int:student_id>/display', methods=['GET'])
+    @app.route('/profile/student/display', methods=['GET'])
     @requires_auth
-    def display_student_profile(student_id):
+    def display_student_profile():
+        student_id = get_student_id_from_auth_id()
         return render_template('my_profile.html', student_id=student_id)
-    @app.route('/profile/student/<int:student_id>', methods=['GET'])
+    @app.route('/profile/student', methods=['GET'])
     @requires_auth
-    def get_student_profile(student_id):
+    def get_student_profile():
+        student_id = get_student_id_from_auth_id()
         if student_id == 0:
             abort(400)
 
@@ -212,9 +214,10 @@ def create_app(test_config=None):
             'qualifications': student.qualifications
         }), 200
 
-    @app.route('/profile/student/<int:student_id>/edit', methods=['GET', 'PATCH'])
+    @app.route('/profile/student/edit', methods=['GET', 'PATCH'])
     @requires_auth
-    def update_student_profile(student_id):
+    def update_student_profile():
+        student_id = get_student_id_from_auth_id()
         if request.method == 'GET':
             return render_template('update_student_form.html', student_id=student_id)
 
@@ -262,11 +265,10 @@ def create_app(test_config=None):
         except:
             abort(422)
         
-    @app.route('/profile/student/<int:student_id>', methods=['GET', 'DELETE'])
+    @app.route('/profile/student>', methods=['DELETE'])
     @requires_auth
-    def delete_student_profile(student_id):
-        if request.method == 'GET':
-            return render_template('home.html')
+    def delete_student_profile():
+        student_id = get_student_id_from_auth_id()
         if student_id == 0:
             abort(400)
 
