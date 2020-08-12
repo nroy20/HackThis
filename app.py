@@ -99,13 +99,6 @@ def create_app(test_config=None):
 
         return decorated
 
-    @app.route('/dashboard')
-    @requires_auth
-    def dashboard():
-        return render_template('student_dashboard.html',
-                            userinfo=session['profile'],
-                            userinfo_pretty=json.dumps(session['jwt_payload'], indent=4))
-
     @app.route('/addinfo')
     @requires_auth
     def addinfo():
@@ -127,9 +120,10 @@ def create_app(test_config=None):
     def display_student_dashboard():
         student_id = get_student_id_from_auth_id()
         return render_template('student_dashboard.html', student_id=student_id)
-    @app.route('/dashboard/student/<int:student_id>', methods=['GET'])
+    @app.route('/dashboard', methods=['GET'])
     @requires_auth
-    def get_student_dashboard(student_id):
+    def get_student_dashboard():
+        student_id = get_student_id_from_auth_id()
         if student_id == 0:
             abort(400)
 
