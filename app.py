@@ -318,7 +318,6 @@ def create_app(test_config=None):
         })
         
     @app.route('/student/login', methods=['GET'])
-    @requires_auth
     def login_buttons():
         return render_template('student_login.html')
 
