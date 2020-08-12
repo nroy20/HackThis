@@ -117,8 +117,13 @@ def create_app(test_config=None):
     @app.route('/dashboard/student/<int:student_id>/display', methods=['GET'])
     @requires_auth
     def display_student_dashboard(student_id):
+        profile = session['profile']
+        user_id = profile.user_id
+        if not user_id:
+            abort(404)
         return render_template('student_dashboard.html', student_id=student_id)
     @app.route('/dashboard/student/<int:student_id>', methods=['GET'])
+    @requires_auth
     def get_student_dashboard(student_id):
         if student_id == 0:
             abort(400)
@@ -152,6 +157,7 @@ def create_app(test_config=None):
         }), 200
 
     @app.route('/profile/student/create', methods=['GET', 'POST'])
+    @requires_auth
     def create_student_profile():
         if request.method == 'GET':
             return render_template('new_student_form.html')
@@ -191,9 +197,11 @@ def create_app(test_config=None):
         except:
             abort(422)
     @app.route('/profile/student/<int:student_id>/display', methods=['GET'])
+    @requires_auth
     def display_student_profile(student_id):
         return render_template('my_profile.html', student_id=student_id)
     @app.route('/profile/student/<int:student_id>', methods=['GET'])
+    @requires_auth
     def get_student_profile(student_id):
         if student_id == 0:
             abort(400)
@@ -213,6 +221,7 @@ def create_app(test_config=None):
         }), 200
 
     @app.route('/profile/student/<int:student_id>/edit', methods=['GET', 'PATCH'])
+    @requires_auth
     def update_student_profile(student_id):
         if request.method == 'GET':
             return render_template('update_student_form.html', student_id=student_id)
@@ -262,6 +271,7 @@ def create_app(test_config=None):
             abort(422)
         
     @app.route('/profile/student/<int:student_id>', methods=['GET', 'DELETE'])
+    @requires_auth
     def delete_student_profile(student_id):
         if request.method == 'GET':
             return render_template('home.html')
@@ -280,6 +290,7 @@ def create_app(test_config=None):
         }), 200
 
     @app.route('/student/search', methods=['GET','POST'])
+    @requires_auth
     def search_businesses():
         if request.method == 'GET':
             return render_template("search.html")
@@ -307,6 +318,7 @@ def create_app(test_config=None):
         })
         
     @app.route('/student/login', methods=['GET'])
+    @requires_auth
     def login_buttons():
         return render_template('student_login.html')
 
