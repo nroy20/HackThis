@@ -14,7 +14,15 @@ from authlib.integrations.flask_client import OAuth
 from six.moves.urllib.parse import urlencode
 
 
-#def get_id_from_auth_id():
+def get_student_id_from_auth_id():
+    profile = session['profile']
+        user_id = profile['user_id']
+        if not user_id:
+            abort(403)
+        student = Student.query.filter_by(auth_id=user_id).one_or_none()
+        if not student:
+            abort(404)
+        return student.id
 
 def create_app(test_config=None):
     app = Flask(__name__)
@@ -114,13 +122,10 @@ def create_app(test_config=None):
         return redirect(auth0.api_base_url + '/v2/logout?' + urlencode(params))
     #______________________________student endpoints___________________________________
 
-    @app.route('/dashboard/student/<int:student_id>/display', methods=['GET'])
+    @app.route('/dashboard/student/display', methods=['GET'])
     @requires_auth
-    def display_student_dashboard(student_id):
-        profile = session['profile']
-        user_id = profile['user_id']
-        if not user_id:
-            abort(404)
+    def display_student_dashboard():
+        student_id = get_student_id_from_auth_id()
         return render_template('student_dashboard.html', student_id=student_id)
     @app.route('/dashboard/student/<int:student_id>', methods=['GET'])
     @requires_auth

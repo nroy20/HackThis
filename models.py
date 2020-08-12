@@ -33,7 +33,8 @@ class Student(db.Model):
             "email": self.release_date,
             "zip_code": self.zip_code,
             "interests": self.interests,
-            "qualifications": self.qualifications
+            "qualifications": self.qualifications,
+            "auth_id": self.auth_id
         }
 
     def insert(self):
