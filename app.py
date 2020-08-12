@@ -94,7 +94,7 @@ def create_app(test_config=None):
         def decorated(*args, **kwargs):
             if 'profile' not in session:
             # Redirect to Login page here
-                return redirect('/')
+                return redirect('/login')
             return f(*args, **kwargs)
 
         return decorated
