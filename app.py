@@ -63,7 +63,7 @@ def create_app(test_config=None):
             'name': userinfo['name'],
             'picture': userinfo['picture']
         }
-        return redirect('/dashboard')
+        return redirect('/dashboard/display')
 
     @app.route('/signup-results')
     def signup_handling():
@@ -79,7 +79,7 @@ def create_app(test_config=None):
             'name': userinfo['name'],
             'picture': userinfo['picture']
         }
-        return redirect('/addinfo')
+        return redirect('/profile/student/create')
 
     @app.route('/login')
     def login():
@@ -99,13 +99,6 @@ def create_app(test_config=None):
 
         return decorated
 
-    @app.route('/addinfo')
-    @requires_auth
-    def addinfo():
-        return render_template('new_student_form.html',
-                            userinfo=session['profile'],
-                            userinfo_pretty=json.dumps(session['jwt_payload'], indent=4))
-
     @app.route('/logout')
     def logout():
         # Clear session stored data
@@ -115,7 +108,7 @@ def create_app(test_config=None):
         return redirect(auth0.api_base_url + '/v2/logout?' + urlencode(params))
     #______________________________student endpoints___________________________________
 
-    @app.route('/dashboard/student/display', methods=['GET'])
+    @app.route('/dashboard/display', methods=['GET'])
     @requires_auth
     def display_student_dashboard():
         student_id = get_student_id_from_auth_id()
@@ -159,7 +152,7 @@ def create_app(test_config=None):
     @requires_auth
     def create_student_profile():
         if request.method == 'GET':
-            return render_template('new_student_form.html')
+            return render_template('new_student_form.html', userinfo=session['profile'])
 
         body = request.get_json()
         try:
