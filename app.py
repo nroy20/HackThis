@@ -265,7 +265,7 @@ def create_app(test_config=None):
         except:
             abort(422)
         
-    @app.route('/profile/student>', methods=['DELETE'])
+    @app.route('/profile/student', methods=['DELETE'])
     @requires_auth
     def delete_student_profile():
         student_id = get_student_id_from_auth_id()
