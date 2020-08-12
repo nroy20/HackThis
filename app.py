@@ -118,7 +118,7 @@ def create_app(test_config=None):
     @requires_auth
     def display_student_dashboard(student_id):
         profile = session['profile']
-        user_id = profile.user_id
+        user_id = profile['user_id']
         if not user_id:
             abort(404)
         return render_template('student_dashboard.html', student_id=student_id)
