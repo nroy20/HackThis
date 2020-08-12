@@ -16,13 +16,13 @@ from six.moves.urllib.parse import urlencode
 
 def get_student_id_from_auth_id():
     profile = session['profile']
-        user_id = profile['user_id']
-        if not user_id:
-            abort(403)
-        student = Student.query.filter_by(auth_id=user_id).one_or_none()
-        if not student:
-            abort(404)
-        return student.id
+    user_id = profile['user_id']
+    if not user_id:
+        abort(403)
+    student = Student.query.filter_by(auth_id=user_id).one_or_none()
+    if not student:
+        abort(404)
+    return student.id
 
 def create_app(test_config=None):
     app = Flask(__name__)
