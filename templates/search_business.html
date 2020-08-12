@@ -41,7 +41,10 @@
         for (var i = 0; i < results.count; i++) {
           var div = document.createElement("div");
           div.innerHTML = "name: " + data[i].name;
-          container.appendChild(div);
+          var divContainer = document.createElement("div")
+          divContainer.setAttribute("id", "result")
+          divContainer.appendChild(div)
+          container.appendChild(divContainer);
         }
       }
       const button = document.querySelector('.submit');
