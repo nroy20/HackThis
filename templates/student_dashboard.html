@@ -159,6 +159,18 @@
               document.getElementById("error").className = '';
             });
       }
+    const button = document.querySelector('.submit');
+    button.onclick = function(e) {
+      fetch('/dashboard/add-business', {
+        method: 'PATCH',
+        body: JSON.stringify({
+          'name': document.getElementById('businesses').value
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+    }
   </script>
   </body>
 </html>

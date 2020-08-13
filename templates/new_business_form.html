@@ -53,7 +53,7 @@
         const button = document.querySelector('.submit');
         var authDiv = document.getElementById("authid")
         var authID = authDiv.getAttribute("data-id")
-            button.onclick = function(e) {
+        button.onclick = function(e) {
                 fetch('/profile/business/create', {
                     method: 'POST',
                     body: JSON.stringify({
@@ -81,6 +81,6 @@
                     console.log(e)
                     document.getElementById("error").className = '';
                 })
-            }
+            }    
     </script>
 </html>
