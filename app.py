@@ -375,11 +375,11 @@ def create_app(test_config=None):
 
     @app.route('/profile/business/<int:business_id>/display', methods=['GET'])
     @requires_auth
-    def display_business_profile(business_id):
+    def display_business_profile_student_view(business_id):
         return render_template('business_profile_student_view.html', business_id=business_id)
     @app.route('/profile/business/<int:business_id>', methods=['GET'])
     @requires_auth
-    def get_business_profile(business_id):
+    def get_business_profile_student_view(business_id):
         if business_id == 0:
             abort(400)
 
