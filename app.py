@@ -186,7 +186,7 @@ def create_app(test_config=None):
         student = Student.query.get(student_id)
         if not student:
             abort(404)
-
+        '''
         student_zip_code = student.zip_code
         search = SearchEngine(simple_zipcode=True)
         zipcode = search.by_zipcode(student_zip_code)
@@ -208,14 +208,14 @@ def create_app(test_config=None):
                     'latitude': g.latlng[0],
                     'longitude': g.latlng[1]
                 })
-
+        '''
         return jsonify({
             'success': True,
             'id': student_id,
             'name': student.name,
-            'student_lat': student_lat,
-            'student_long': student_long, 
-            'businesses_in_zip_code': businesses_in_zip_code
+            #'student_lat': student_lat,
+            #'student_long': student_long, 
+            #'businesses_in_zip_code': businesses_in_zip_code
         }), 200
 
     @app.route('/profile/student/create', methods=['GET', 'POST'])
