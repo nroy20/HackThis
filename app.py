@@ -218,36 +218,7 @@ def create_app(test_config=None):
             #'student_long': student_long, 
             #'businesses_in_zip_code': businesses_in_zip_code
         }), 200
-'''
-    @app.route('/dashboard/add-business', methods=['PATCH'])
-    @requires_auth
-    def add_business_to_dashboard():
-        student_id = get_student_id_from_auth_id()
-        student = Student.query.get(student_id)
-        business_names = student.business_names
-        #body = request.get_json()
-        try:
-            
-            business_name = body.get('business_name')
-            if name:
-                business_names.append(business_name)
-                student.business_names = business_names
-            
-            
-            business_names.append("hello")
-            student.business_names = business_names
-            if not student:
-                abort(404)
-
-            student.update()
-
-            return jsonify({
-                'success': True,
-                'name_added': body.get('name')
-            })
-        except:
-            abort(422)
-'''
+    
     @app.route('/profile/student/create', methods=['GET', 'POST'])
     @requires_auth
     def create_student_profile():
