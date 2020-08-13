@@ -293,7 +293,7 @@ def create_app(test_config=None):
         student_id = get_student_id_from_auth_id()
         return render_template('my_profile.html', student_id=student_id)
     @app.route('/profile/student', methods=['GET'])
-    @requires_auth
+    #@requires_auth
     def get_student_profile():
         student_id = get_student_id_from_auth_id()
         if student_id == 0:
@@ -310,7 +310,8 @@ def create_app(test_config=None):
             'email': student.email,
             'zip_code': student.zip_code,
             'interests': student.interests,
-            'qualifications': student.qualifications
+            'qualifications': student.qualifications,
+            'business_names': student.business_names
         }), 200
 
     @app.route('/profile/student/edit', methods=['GET', 'PATCH'])
