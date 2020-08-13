@@ -583,11 +583,11 @@ def create_app(test_config=None):
         })
     @app.route('/profile/student/<int:student_id>/display', methods=['GET'])
     @requires_business_auth
-    def display_student_profile(student_id):
+    def display_student_profile_business_view(student_id):
         return render_template('my_profile.html', student_id=student_id)
     @app.route('/profile/student/<int:student_id>', methods=['GET'])
     @requires_business_auth
-    def get_student_profile(student_id):
+    def get_student_profile_business_view(student_id):
         if student_id == 0:
             abort(400)
 
