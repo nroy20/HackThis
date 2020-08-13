@@ -229,7 +229,7 @@ def create_app(test_config=None):
         try:
             business_name = body.get('business_name')
             if name:
-                business_names.append(name)
+                business_names.append(business_name)
                 student.business_names = business_names
                 
             if not student:
