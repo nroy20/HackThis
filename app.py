@@ -12,6 +12,7 @@ from werkzeug.exceptions import HTTPException
 from dotenv import load_dotenv, find_dotenv
 from authlib.integrations.flask_client import OAuth
 from six.moves.urllib.parse import urlencode
+from uszipcode import SearchEngine
 
 
 def get_student_id_from_auth_id():
@@ -186,27 +187,34 @@ def create_app(test_config=None):
         if not student:
             abort(404)
 
+        student_zip_code = student.zip_code
+        search = SearchEngine(simple_zipcode=True)
+        zipcode = search.by_zipcode(student_zip_code)
+        zipcode_json = zipcode.to_json()
+        student_lat = zipcode_json["lat"]
+        student_long = zipcode_json["long"]
+
         all_businesses = Business.query.filter(Business.address != None).all()
         businesses_in_zip_code = []
-        geolocator = geocode.GoogleV3(api_key='APIKEY')
+        #geolocator = geocode.GoogleV3(api_key='APIKEY')
 
         for business in all_businesses:
-            #plug address into api
-            if (business_zip_code == student.zip_code):
-                location = geolocator.geocode(business.address, timeout=15)
+            if (business.zip_code == student.zip_code):
+                #location = geolocator.geocode(business.address, timeout=15)
+                g = geocoder.google(business.address)
                 businesses_in_zip_code.append({
                     'id': business.id,
                     'name': business.name,
-                    'address': business.address,
-                    'latitude': location.latitude,
-                    'longitude': location.longitude
+                    'latitude': g.latlng[0],
+                    'longitude': g.latlng[1]
                 })
 
         return jsonify({
             'success': True,
             'id': student_id,
             'name': student.name,
-            'zip_code': student.zip_code, 
+            'student_lat': student_lat,
+            'student_long': student_long, 
             'businesses_in_zip_code': businesses_in_zip_code
         }), 200
 
