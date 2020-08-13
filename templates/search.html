@@ -38,8 +38,6 @@
   <script>
     function appendData(results) {
       var container = document.getElementById("data");
-      container = document.createElement("div")
-      container.setAttribute("id", "data")
       var data = results.data
       for (var i = 0; i < results.count; i++) {
         var id = data[i].id
