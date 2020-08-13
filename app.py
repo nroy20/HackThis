@@ -186,6 +186,13 @@ def create_app(test_config=None):
         student = Student.query.get(student_id)
         if not student:
             abort(404)
+
+        zip_code = student.zip_code
+
+        recommended_businesses = Business.query.filter_by(Business.zip_code = zip_code)
+        data = []
+        for business in recommended_businesses:
+            data.append(business.name)
         '''
         student_zip_code = student.zip_code
         search = SearchEngine(simple_zipcode=True)
@@ -213,7 +220,8 @@ def create_app(test_config=None):
             'success': True,
             'id': student_id,
             'name': student.name,
-            'business_names': student.business_names
+            'business_names': student.business_names,
+            'recommended': data
             #'student_lat': student_lat,
             #'student_long': student_long, 
             #'businesses_in_zip_code': businesses_in_zip_code

@@ -67,6 +67,11 @@
           <div id="business-names"></div>
         </div>
       </div>
+
+      <div class="float-child">
+        <h2>Recommended Jobs</h2>
+        <div class="recommended"></div>
+      </div>
       
       <div class="float-child">
         <div id="map">
@@ -133,8 +138,8 @@
         return div;
       }
     function appendData(results){
-      container = document.getElementById("business-names");
-      business_names = results.business_names;
+      container = document.getElementById("recommended");
+      business_names = results.data;
       for (var i = 0; i < business_names.length; i++) {
         var name = createDiv(business_names[i]);
         container.appendChild(name);
@@ -150,7 +155,7 @@
                 return response.text();
             }) 
             .then(function(jsonResponse) {
-                //appendData(jsonResponse)
+                appendData(jsonResponse)
                 console.log(jsonResponse);
                 document.getElementById("error").className = 'hidden';
             })
