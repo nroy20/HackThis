@@ -295,7 +295,7 @@ def create_app(test_config=None):
     @app.route('/profile/student', methods=['GET'])
     #@requires_auth
     def get_student_profile():
-        student_id = get_student_id_from_auth_id()
+        student_id = 16#get_student_id_from_auth_id()
         if student_id == 0:
             abort(400)
 
