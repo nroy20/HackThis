@@ -164,11 +164,22 @@
       fetch('/dashboard/add-business', {
         method: 'PATCH',
         body: JSON.stringify({
-          'name': document.getElementById('businesses').value
+          'business_name': document.getElementById('businesses').value
         }),
         headers: {
           'Content-Type': 'application/json'
         }
+      })
+      .then(function(response){
+        return response.text();
+      }) 
+      .then(function(jsonResponse) {
+        console.log(jsonResponse);
+        document.getElementById("error").className = 'hidden';
+      })
+      .catch(function(e) {
+        console.log(e)
+        document.getElementById("error").className = '';
       })
     }
   </script>

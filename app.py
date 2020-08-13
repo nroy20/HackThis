@@ -227,7 +227,7 @@ def create_app(test_config=None):
         business_names = student.business_names
         body = request.get_json()
         try:
-            name = body.get('name')
+            business_name = body.get('business_name')
             if name:
                 business_names.append(name)
                 student.business_names = business_names
