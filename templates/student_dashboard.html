@@ -150,7 +150,7 @@
                 return response.text();
             }) 
             .then(function(jsonResponse) {
-                appendData(jsonResponse)
+                //appendData(jsonResponse)
                 console.log(jsonResponse);
                 document.getElementById("error").className = 'hidden';
             })
@@ -159,6 +159,7 @@
               document.getElementById("error").className = '';
             });
       }
+    /*
     const button = document.querySelector('.submit');
     button.onclick = function(e) {
       fetch('/dashboard/add-business', {
@@ -182,6 +183,7 @@
         document.getElementById("error").className = '';
       })
     }
+    */
   </script>
   </body>
 </html>

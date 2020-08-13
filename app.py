@@ -218,7 +218,7 @@ def create_app(test_config=None):
             #'student_long': student_long, 
             #'businesses_in_zip_code': businesses_in_zip_code
         }), 200
-
+'''
     @app.route('/dashboard/add-business', methods=['PATCH'])
     @requires_auth
     def add_business_to_dashboard():
@@ -247,7 +247,7 @@ def create_app(test_config=None):
             })
         except:
             abort(422)
-
+'''
     @app.route('/profile/student/create', methods=['GET', 'POST'])
     @requires_auth
     def create_student_profile():
@@ -294,9 +294,9 @@ def create_app(test_config=None):
         student_id = get_student_id_from_auth_id()
         return render_template('my_profile.html', student_id=student_id)
     @app.route('/profile/student', methods=['GET'])
-    #@requires_auth
+    @requires_auth
     def get_student_profile():
-        student_id = 16#get_student_id_from_auth_id()
+        student_id = get_student_id_from_auth_id()
         if student_id == 0:
             abort(400)
 
