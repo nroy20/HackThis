@@ -187,9 +187,9 @@ def create_app(test_config=None):
         if not student:
             abort(404)
 
-        zip_code = student.zip_code
+        student_zip_code = student.zip_code
 
-        recommended_businesses = Business.query.filter_by(Business.zip_code = zip_code)
+        recommended_businesses = Business.query.filter_by(zip_code=student_zip_code)
         data = []
         for business in recommended_businesses:
             data.append(business.name)
