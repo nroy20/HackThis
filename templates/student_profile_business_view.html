@@ -73,7 +73,7 @@
       window.onload = function(e) {
         var header = document.getElementById("header")
         var studentId = header.getAttribute("data-id")
-        fetch('/profile/student', )
+        fetch('/profile/student/' + studentId, )
           .then(function(response){
             return response.json();
           }) 

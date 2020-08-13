@@ -584,7 +584,7 @@ def create_app(test_config=None):
     @app.route('/profile/student/<int:student_id>/display', methods=['GET'])
     @requires_business_auth
     def display_student_profile_business_view(student_id):
-        return render_template('my_profile.html', student_id=student_id)
+        return render_template('student_profile_business_view.html', student_id=student_id)
     @app.route('/profile/student/<int:student_id>', methods=['GET'])
     @requires_business_auth
     def get_student_profile_business_view(student_id):
