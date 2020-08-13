@@ -6,13 +6,13 @@ from flask import Flask, render_template, request, jsonify, abort, session, redi
 from flask_cors import CORS
 from functools import wraps
 from models import Student, Business, setup_db
-from geopy.geocoders import GoogleV3
+#from geopy.geocoders import GoogleV3
 from os import environ as env
 from werkzeug.exceptions import HTTPException
 from dotenv import load_dotenv, find_dotenv
 from authlib.integrations.flask_client import OAuth
 from six.moves.urllib.parse import urlencode
-from uszipcode import SearchEngine
+#from uszipcode import SearchEngine
 
 
 def get_student_id_from_auth_id():
@@ -201,8 +201,8 @@ def create_app(test_config=None):
         for business in all_businesses:
             if (business.zip_code == student.zip_code):
                 #location = geolocator.geocode(business.address, timeout=15)
-                g = geocoder.google(business.address)
-                businesses_in_zip_code.append({
+                #g = geocoder.google(business.address)
+                #businesses_in_zip_code.append({
                     'id': business.id,
                     'name': business.name,
                     'latitude': g.latlng[0],
