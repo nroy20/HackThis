@@ -39,7 +39,9 @@
         var container = document.getElementById("data");
         var data = results.data
         for (var i = 0; i < results.count; i++) {
-          var div = document.createElement("div");
+          var id = data[i].id
+          var link = document.createElement("a");
+          link.setAttribute('href', '/profile/student/' + id + '/display');
           div.innerHTML = "name: " + data[i].name;
           var divContainer = document.createElement("div")
           divContainer.setAttribute("id", "result")
