@@ -137,11 +137,12 @@
         div.innerHTML = data
         return div;
       }
+      
     function appendData(results){
       var container = document.getElementById("recommended");
-      var business_names = results.data;
-      for (var i = 0; i < business_names.length; i++) {
-        var name = createDiv(business_names[i]);
+      var business_names = results.recommended;
+      for (var i = 0; i < results.recommended_count; i++) {
+        var name = createDiv(business_names[i].name);
         container.appendChild(name);
       }
     }

@@ -221,6 +221,7 @@ def create_app(test_config=None):
             'id': student_id,
             'name': student.name,
             'business_names': student.business_names,
+            'recommended_count': len(recommended_businesses)
             'recommended': data
             #'student_lat': student_lat,
             #'student_long': student_long, 
