@@ -30,6 +30,7 @@
   </head>
 
   <body>
+    <div id="error" class="hidden">Something went wrong!</div>
 
     <div class="top-bar">
       <a href="/student/search">
@@ -58,10 +59,12 @@
       <div class="float-child">
         <h2>Jobs I've applied to</h2>
         <div class="jobs_applied">
-          <ul>
-            <li>Job 1</li>
-            <li>Job 2</li>
-          </ul>
+          <h3>
+            Add here to keep track:
+            <input type="text" id="businesses"/>
+          </h3>
+          <button class="submit">Submit</button>
+          <div id="business-names"></div>
         </div>
       </div>
       
@@ -124,6 +127,19 @@
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBH7pSV9JwtPJkrpUQ2nqmI9PBNrVMv0Kk&callback=initMap">
   </script>
   <script>
+    function createDiv(data) {
+        var div = document.createElement("div")
+        div.innerHTML = data
+        return div;
+      }
+    function appendData(results){
+      container = document.getElementById("business-names");
+      business_names = results.business_names;
+      for (var i = 0; i < business_names.length; i++) {
+        var name = createDiv(business_names[i]);
+        container.appendChild(name);
+      }
+    }
     window.onload = function(e) {
       var header = document.getElementById("header")
       var studentId = header.getAttribute("data-id")
@@ -134,8 +150,14 @@
                 return response.text();
             }) 
             .then(function(jsonResponse) {
+                appendData(jsonResponse)
                 console.log(jsonResponse);
+                document.getElementById("error").className = 'hidden';
             })
+            .catch(function(e) {
+              console.log(e)
+              document.getElementById("error").className = '';
+            });
       }
   </script>
   </body>

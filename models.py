@@ -25,6 +25,7 @@ class Student(db.Model):
     interests = db.Column(db.String)
     qualifications = db.Column(db.String)
     auth_id = db.Column(db.String, unique=True)
+    business_names = db.Column(db.ARRAY(db.String))
 
     def format(self):
         return {
