@@ -54,7 +54,7 @@
         const button = document.querySelector('.submit');
             button.onclick = function(e) {
                 const updateId = e.target.dataset['id']
-                fetch('/profile/business/' + updateId + '/edit', {
+                fetch('/profile/business/edit', {
                     method: 'PATCH',
                     body: JSON.stringify({
                         'name': document.getElementById('name').value,

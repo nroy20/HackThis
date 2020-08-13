@@ -85,7 +85,7 @@
       window.onload = function(e) {
         var header = document.getElementById("header")
         var businessId = header.getAttribute("data-id")
-        fetch('/profile/business/' + businessId)
+        fetch('/profile/business')
           .then(function(response){
             console.log(response);
             return response.json();
@@ -104,7 +104,7 @@
       const button = document.querySelector('.delete-button');
       button.onclick = function(e) {
         const businessId = e.target.dataset['id'];
-        fetch('/profile/business/' + businessId, {
+        fetch('/profile/business', {
           method: 'DELETE'
         })
         .then(function() {
