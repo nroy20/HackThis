@@ -233,8 +233,7 @@ def create_app(test_config=None):
                 business_names.append(business_name)
                 student.business_names = business_names
             '''
-            if not business_names:
-                business_names = []
+            
             business_names.append("hello")
             student.business_names = business_names
             if not student:

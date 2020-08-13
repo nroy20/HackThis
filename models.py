@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, String, Integer, DateTime
+from sqlalchemy import Column, String, Integer, DateTime, ARRAY
 from flask_migrate import Migrate
 
 database_path = "postgres://jscccussyzdhqu:1e1a0441e245b26d485b3d32da3edf98fde2ff0ce8f9b97edbd273301a6ee7a3@ec2-54-234-28-165.compute-1.amazonaws.com:5432/db3m5e4qet8l16"
@@ -25,7 +25,7 @@ class Student(db.Model):
     interests = db.Column(db.String)
     qualifications = db.Column(db.String)
     auth_id = db.Column(db.String, unique=True)
-    business_names = db.Column(db.ARRAY(db.String))
+    business_names = db.Column(db.ARRAY(db.String), default=[])
 
     def format(self):
         return {
