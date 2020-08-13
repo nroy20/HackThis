@@ -372,10 +372,38 @@ def create_app(test_config=None):
             'count': len(businesses),
             'data': data
         })
+
+    @app.route('/profile/business/<int:business_id>/display', methods=['GET'])
+    @requires_auth
+    def display_business_profile(business_id):
+        return render_template('business_profile_student_view.html', business_id=business_id)
+    @app.route('/profile/business/<int:business_id>', methods=['GET'])
+    @requires_auth
+    def get_business_profile(business_id):
+        if business_id == 0:
+            abort(400)
+
+        business = Business.query.get(business_id)
+        if not business:
+            abort(404)
+
+        return jsonify({
+            'success': True,
+            'id': business.id,
+            'name': business.name,
+            'email': business.email,
+            'zip_code': business.zip_code,
+            'goals': business.goals,
+            'website': business.website,
+            'address': business.address,
+            'description': business.description,
+            'skills': business.skills
+        }), 200
         
     @app.route('/student/login', methods=['GET'])
     def login_buttons():
         return render_template('student_login.html')
+
 
     #for testing purposes
     '''

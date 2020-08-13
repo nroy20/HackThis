@@ -34,19 +34,8 @@
     </div>
 
     <div>
-      <a href="/business/search">
-        <button>Search</button>
-      </a>
-      <a href="/profile/business/edit">
-        <button>Update</button>
-      </a>
-      <a href="/logout">
-        <button class="delete-button" data-id="{{ business_id }}">Delete</button>
-      </a>
-      <a href='/logout'>
-        <button>
-          Sign Out
-        </button>
+      <a href="/student/search">
+        <button>Back to search</button>
       </a>
     </div>
 
@@ -90,7 +79,7 @@
       window.onload = function(e) {
         var header = document.getElementById("header")
         var businessId = header.getAttribute("data-id")
-        fetch('/profile/business')
+        fetch('/profile/business/' + businessId)
           .then(function(response){
             console.log(response);
             return response.json();
