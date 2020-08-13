@@ -227,12 +227,12 @@ def create_app(test_config=None):
         business_names = student.business_names
         #body = request.get_json()
         try:
-            '''
+            
             business_name = body.get('business_name')
             if name:
                 business_names.append(business_name)
                 student.business_names = business_names
-            '''
+            
             
             business_names.append("hello")
             student.business_names = business_names
