@@ -2,22 +2,124 @@
 
 <html>
   <head>
-    <title>Business Profile</title>
+    <title>My Profile</title>
     <link rel="stylesheet" type="text/css" href="style.css"/>
+    <style>
+      .hidden {
+          display: none;
+      }
+    </style>
   </head>
 
   <body>
+    <div id="error" class="hidden">Something went wrong!</div>
 
-    <h1 id="header">Business Name</h1>
+    <h1 id="header" data-id="{{ business_id }}">My Profile</h1>
 
-    <p>Description</p>
-    <p>Website</p>
-    <p>What we're looking for</p>
-    <p>Interests</p>
-    <p>Contact info</p>
+    <div id = "data"></div>
+
+    <div class="profile-header">
+      <h1 id="name" style="text-align: left; margin-left: 20px"></h1>
+    </div>
+
+    <div class="float-container">
+      <div id="float-child", style="width:25%;">
+        <div id="contact" class="widget"></div>
+      </div>
+      <div id="float-child">
+        <div id="about" class="widget"></div>
+        <p>Looking for:</p>
+        <div id="skills" class="widget"></div>
+      </div>
+    </div>
+
+    <div>
+      <a href="/business/search">
+        <button>Search</button>
+      </a>
+      <a href="/profile/business/edit">
+        <button>Update</button>
+      </a>
+      <a href="/logout">
+        <button class="delete-button" data-id="{{ business_id }}">Delete</button>
+      </a>
+      <a href='/logout'>
+        <button>
+          Sign Out
+        </button>
+      </a>
+    </div>
 
     <script>
+      function createDiv(description, data) {
+        var div = document.createElement("div")
+        div.innerHTML = description + ": " + data
+        return div;
+      }
+      function createH1(data) {
+        var header = document.createElement("H1")
+        header.innerHTML = data
+        return header;
+      }
+      function appendData(results) {
+        var divs = [
+          createH1(results.name),
+          createDiv("description", results.description),
+          createDiv("email", results.email),
+          createDiv("address", results.address),
+          createDiv("skills", results.skills),
+          createDiv("goals", results.goals),
+          createDiv("website", results.website),
+          createDiv("zip code", results.zip_code),
+        ]
 
+        var container1 = document.getElementById("name");
+        var container2 = document.getElementById("contact");
+        var container3 = document.getElementById("about");
+        var container4 = document.getElementById("skills");
+        container1.appendChild(divs[0])
+        container2.appendChild(divs[2])
+        container2.appendChild(divs[3])
+        container2.appendChild(divs[6])
+        container2.appendChild(divs[7])
+        container3.appendChild(divs[1])
+        container4.appendChild(divs[5])
+        container4.appendChild(divs[4])
+      }
+      
+      window.onload = function(e) {
+        var header = document.getElementById("header")
+        var businessId = header.getAttribute("data-id")
+        fetch('/profile/business')
+          .then(function(response){
+            console.log(response);
+            return response.json();
+          }) 
+          .then(function(data) {
+            appendData(data);
+            console.log(data);
+            document.getElementById("error").className = 'hidden';
+          })
+          .catch(function(e) {
+            console.log(e)
+            document.getElementById("error").className = '';
+          });              
+      }
+      
+      const button = document.querySelector('.delete-button');
+      button.onclick = function(e) {
+        const businessId = e.target.dataset['id'];
+        fetch('/profile/business', {
+          method: 'DELETE'
+        })
+        .then(function() {
+          document.getElementById("error").className = 'hidden';
+        })
+        .catch(function(e) {
+          console.log(e)
+          document.getElementById("error").className = '';
+        })
+      }
     </script>
   </body>
 </html>
