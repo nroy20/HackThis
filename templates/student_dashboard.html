@@ -56,7 +56,7 @@
       </a>
     </div>
 
-    <h1 id="welcome" data-id="{{ student_id }}">Welcome, {{ student_name }}</h1>
+    <h1 id="header" data-id="{{ student_id }}">Welcome, {{ student_name }}</h1>
 
     <div class="float-container">
 
@@ -146,7 +146,7 @@
       }
     }
     window.onload = function(e) {
-      var header = document.getElementById("welcome")
+      var header = document.getElementById("header")
       var studentId = header.getAttribute("data-id")
       fetch('/dashboard', {
                 method: "GET",
