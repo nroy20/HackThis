@@ -10,6 +10,90 @@
   </head>
 
   <body>
+    <datalist id="majors">
+      <option value="Agriculture">
+      </option><option value="Animal Sciences">
+      </option><option value="Food Science">
+      </option><option value="Forestry">
+      </option><option value="Natural Resources Management">
+      </option><option value="Fine Arts">
+      </option><option value="Drama and Theater Arts">
+      </option><option value="Music">
+      </option><option value="Visual and Performing Arts">
+      </option><option value="Graphic Design">
+      </option><option value="Film Video and Photographic Arts">
+      </option><option value="Environmental Science">
+      </option><option value="Biology">
+      </option><option value="Biochemical Sciences">
+      </option><option value="Botany">
+      </option><option value="Molecular Biology">
+      </option><option value="Ecology">
+      </option><option value="Genetics">
+      </option><option value="Microbiology">
+      </option><option value="Pharmacology">
+      </option><option value="Physiology">
+      </option><option value="Zoology">
+      </option><option value="Neuroscience">
+      </option><option value="Cognitive Science">
+      </option><option value="Business">
+      </option><option value="Accounting">
+      </option><option value="Actuarial Science">
+      </option><option value="Business Management">
+      </option><option value="Marketing">
+      </option><option value="Finance">
+      </option><option value="Human Resources and Personnel Management">
+      </option><option value="International Business">
+      </option><option value="Hospitality Management">
+      </option><option value="Communications">
+      </option><option value="Journalism">
+      </option><option value="Advertising">
+      </option><option value="Computer Science">
+      </option><option value="Information Sciences">
+      </option><option value="Mathematics">
+      </option><option value="Education">
+      </option><option value="Architecture">
+      </option><option value="General Engineering">
+      </option><option value="Aerospace Engineering">
+      </option><option value="Biological Engineering">
+      </option><option value="Biomedical Engineering">
+      </option><option value="Chemical Engineering">
+      </option><option value="Civil Engineering">
+      </option><option value="Computer Engineering">
+      </option><option value="Electrical Engineering">
+      </option><option value="Materials Science">
+      </option><option value="Mechanical Engineering">
+      </option><option value="Nutrition Sciences">
+      </option><option value="Health and Medical Administrative Services">
+      </option><option value="Nursing">
+      </option><option value="Treatment Therapy Professions">
+      </option><option value="Public Health">
+      </option><option value="Linguistics">
+      </option><option value="Foreign Language Studies">
+      </option><option value="English Language and Literature">
+      </option><option value="Liberal Arts">
+      </option><option value="Humanities">
+      </option><option value="Philosophy and Religious Studies">
+      </option><option value="Theology">
+      </option><option value="Anthropology and Archaeology">
+      </option><option value="Art History">
+      </option><option value="History">
+      </option><option value="Culinary Arts">
+      </option><option value="Pre-Law and Legal Studies">
+      </option><option value="Public Policy">
+      </option><option value="Physical Sciences">
+      </option><option value="Astronomy and Astrophysics">
+      </option><option value="Meteorology">
+      </option><option value="Chemistry">
+      </option><option value="Physics">
+      </option><option value="Psychology">
+      </option><option value="Social Work">
+      </option><option value="Economics">
+      </option><option value="Political Science and Government">
+      </option><option value="Sociology">
+      </option><option value="Miscellaneous Social Sciences">
+      </option><option value="Other">
+    </option></datalist>
+
     <div class="top-bar">
       <a href="/profile/business/display">
         <button>Back to profile</button>
@@ -19,7 +103,7 @@
     <div style="width:70%;margin:auto;">
       <form id="form">
         <div class="search-form-input">
-          <input type="text" id="keywords" required>
+          <input type="text" id="keywords" placeholder="Search" required>
         </div>
         <div class="search-form-input">
           <input type="text" id="zipcode" placeholder="Zip Code">
@@ -37,48 +121,48 @@
       <div id = "data"></div>
     </div>
 
-    <script>
-      function appendData(results) {
-        var container = document.getElementById("data");
-        while (container.firstChild) {
-          container.removeChild(container.lastChild);
-        }
-        var data = results.data
-        for (var i = 0; i < results.count; i++) {
-          var id = data[i].id
-          var link = document.createElement("a");
-          link.setAttribute('href', '/profile/student/' + id + '/display');
-          link.innerHTML = "name: " + data[i].name;
-          var divContainer = document.createElement("div")
-          divContainer.setAttribute("id", "result")
-          divContainer.appendChild(link)
-          container.appendChild(divContainer);
-        }
-      }
-      const button = document.querySelector('.submit');
-      button.onclick = function(e) {
-        fetch('/business/search', {
-          method: 'POST',
-          body: JSON.stringify({
-            'search_term': document.getElementById('keywords').value
-          }),
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        })
-        .then(function(response){
-          return response.json();
-        })
-        .then(function(data) {
-          appendData(data);
-          console.log(data);
-          document.getElementById("error").className = 'hidden';
-        })
-        .catch(function(e) {
-          console.log(e)
-          document.getElementById("error").className = '';
-        });
-      }
-    </script>
   </body>
+  <script>
+    function appendData(results) {
+      var container = document.getElementById("data");
+      while (container.firstChild) {
+        container.removeChild(container.lastChild);
+      }
+      var data = results.data;
+      for (var i = 0; i < results.count; i++) {
+        var id = data[i].id;
+        var link = document.createElement("a");
+        link.setAttribute('href', '/profile/student/' + id + '/display');
+        link.innerHTML = "name: " + data[i].name;
+        var divContainer = document.createElement("div");
+        divContainer.setAttribute("id", "result");
+        divContainer.appendChild(link);
+        container.appendChild(divContainer);
+      }
+    }
+    const button = document.querySelector('.submit');
+    button.onclick = function(e) {
+      fetch('/business/search', {
+        method: 'POST',
+        body: JSON.stringify({
+          'search_term': document.getElementById('keywords').value
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(function(response){
+        return response.json();
+      })
+      .then(function(data) {
+        appendData(data);
+        console.log(data);
+        document.getElementById("error").className = 'hidden';
+      })
+      .catch(function(e) {
+        console.log(e)
+        document.getElementById("error").className = '';
+      });
+    }
+  </script>
 </html>

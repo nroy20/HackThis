@@ -175,7 +175,9 @@ def create_app(test_config=None):
     @requires_auth
     def display_student_dashboard():
         student_id = get_student_id_from_auth_id()
-        return render_template('student_dashboard.html', student_id=student_id)
+        student = Student.query.get(student_id)
+        student_name = student.name
+        return render_template('student_dashboard.html', student_id=student_id, student_name=student_name)
     @app.route('/dashboard', methods=['GET'])
     @requires_auth
     def get_student_dashboard():
