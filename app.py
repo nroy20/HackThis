@@ -63,19 +63,19 @@ def create_app(test_config=None):
     
     @app.route('/login')
     def login():
-        return auth0.authorize_redirect(redirect_uri='https://hackthis2020.herokuapp.com/login-results')
+        return auth0.authorize_redirect(redirect_uri='https://community-cafe.herokuapp.com/login-results')
 
     @app.route('/signup')
     def signup():
-        return auth0.authorize_redirect(redirect_uri='https://hackthis2020.herokuapp.com/signup-results')
+        return auth0.authorize_redirect(redirect_uri='https://community-cafe.herokuapp.com/signup-results')
 
     @app.route('/login_business')
     def business_login():
-        return auth0.authorize_redirect(redirect_uri='https://hackthis2020.herokuapp.com/login-results-business')
+        return auth0.authorize_redirect(redirect_uri='https://community-cafe.herokuapp.com/login-results-business')
 
     @app.route('/signup_business')
     def business_signup():
-        return auth0.authorize_redirect(redirect_uri='https://hackthis2020.herokuapp.com/signup-results-business')
+        return auth0.authorize_redirect(redirect_uri='https://community-cafe.herokuapp.com/signup-results-business')
 
     @app.route('/login-results')
     def login_handling():
