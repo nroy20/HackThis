@@ -93,17 +93,21 @@
       <option value="Miscellaneous Social Sciences">
       <option value="Other">
     </datalist>
+    <div class="top-bar">
+      <a href='/dashboard/display'>
+        <button class="normal-button">Back to dashboard</button>
+      </a>
+    </div>
+    <h2 id="header" style="margin-top: 3%;">Find Businesses</h2>
     <div>
       <form id="form">
         <input type="text" id="keywords" placeholder="Search">
         <input type="text" id="zipcode" placeholder="Zip Code">
-        <input type="text" id="qualifications" placeholder="Tell us about your skills/qualifications!">
+        <input type="text" id="skill" list=majors placeholder="Major">
       </form>
       <button class="submit">Submit</button>
     </div>
-    <a href='/dashboard/display'>
-      <button>Back to dashboard</button>
-    </a>
+    
     <div id="error" class="hidden">Something went wrong!</div>
     <div>
       <label>Results</label>
