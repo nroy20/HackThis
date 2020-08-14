@@ -154,6 +154,11 @@
       }
     }
     window.onload = function(e) {
+      if(!window.location.hash) {
+                window.location = window.location + '#loaded';
+                window.location.reload();
+      }
+
       var header = document.getElementById("header")
       var studentId = header.getAttribute("data-id")
       fetch('/dashboard', {
