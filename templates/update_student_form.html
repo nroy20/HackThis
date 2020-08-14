@@ -1,42 +1,43 @@
 <html>
     <head>
         <title>Student Form</title>
-        <h1>Update Student</h1>
+        <h1>Update Profile</h1>
+        <link rel="stylesheet" type="text/css" href="style.css">
         <style>
             .hidden {
                 display: none;
             }
+            html {
+                text-align: center;
+            }
         </style>
     </head>
     <body>
-        <form id="form">
-            <h3>
-                Name:
-                <input type="text" id="name"/>
-            </h3>
-            <h3>
-                Email:
-                <input type="text" id="email"/>
-            </h3>
-            <h3>
-                Zip Code:
-                <input type="text" id="zip_code"/>
-            </h3>
-            <h3>
-                Interests:
-                <input type="text" id="interests"/>
-            </h3>
-            <h3>
-                Qualifications:
-                <input type="text" id="qualifications"/>
-            </h3>
-        </form>
-        <a href='/profile/student/display'>
-            <button class="submit" data-id="{{ student_id }}">Update</button>
-        </a>
-        <a href='/profile/student/display'>
-            <button>Back to profile</button>
-        </a>
+        <div style="text-align: center; margin:auto; margin-bottom: 10%; margin-top: 3%; width:50%; background-color: whitesmoke; border-radius: 8px; padding:3%;">
+            <form id="form">
+                <h3>
+                    <input type="text" id="name" placeholder="Name"/>
+                </h3>
+                <h3>
+                    <input type="text" id="email" placeholder="Email"/>
+                </h3>
+                <h3>
+                    <input type="text" id="zip_code" placeholder="Zip Code"/>
+                </h3>
+                <h3>
+                    <input type="text" id="interests" placeholder="Major"/>
+                </h3>
+                <h3>
+                    <input type="text" id="qualifications" placeholder="Tell us about your skills/qualifications!"/>
+                </h3>
+            </form>
+            <a href='/profile/student/display'>
+                <button class="submit" id="normal-button" data-id="{{ student_id }}">Update</button>
+            </a>
+            <a href='/profile/student/display'>
+                <button> class="normal-button"Back to profile</button>
+            </a>
+        </div>
     </body>
     <script>
         const button = document.querySelector('.submit');

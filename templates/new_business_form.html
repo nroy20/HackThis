@@ -1,7 +1,7 @@
 <html>
     <head>
         <title>New Business Form</title>
-        <h1>Add New Business</h1>
+        <h1>Register Business</h1>
         <style>
             .hidden {
                 display: none;
@@ -9,45 +9,123 @@
         </style>
     </head>
     <body>
+        <datalist id="majors">
+            <option value="Agriculture">
+            <option value="Animal Sciences">
+            <option value="Food Science">
+            <option value="Forestry">
+            <option value="Natural Resources Management">
+            <option value="Fine Arts">
+            <option value="Drama and Theater Arts">
+            <option value="Music">
+            <option value="Visual and Performing Arts">
+            <option value="Graphic Design">
+            <option value="Film Video and Photographic Arts">
+            <option value="Environmental Science">
+            <option value="Biology">
+            <option value="Biochemical Sciences">
+            <option value="Botany">
+            <option value="Molecular Biology">
+            <option value="Ecology">
+            <option value="Genetics">
+            <option value="Microbiology">
+            <option value="Pharmacology">
+            <option value="Physiology">
+            <option value="Zoology">
+            <option value="Neuroscience">
+            <option value="Cognitive Science">
+            <option value="Business">
+            <option value="Accounting">
+            <option value="Actuarial Science">
+            <option value="Business Management">
+            <option value="Marketing">
+            <option value="Finance">
+            <option value="Human Resources and Personnel Management">
+            <option value="International Business">
+            <option value="Hospitality Management">
+            <option value="Communications">
+            <option value="Journalism">
+            <option value="Advertising">
+            <option value="Computer Science">
+            <option value="Information Sciences">
+            <option value="Mathematics">
+            <option value="Education">
+            <option value="Architecture">
+            <option value="General Engineering">
+            <option value="Aerospace Engineering">
+            <option value="Biological Engineering">
+            <option value="Biomedical Engineering">
+            <option value="Chemical Engineering">
+            <option value="Civil Engineering">
+            <option value="Computer Engineering">
+            <option value="Electrical Engineering">
+            <option value="Materials Science">
+            <option value="Mechanical Engineering">
+            <option value="Nutrition Sciences">
+            <option value="Health and Medical Administrative Services">
+            <option value="Nursing">
+            <option value="Treatment Therapy Professions">
+            <option value="Public Health">
+            <option value="Linguistics">
+            <option value="Foreign Language Studies">
+            <option value="English Language and Literature">
+            <option value="Liberal Arts">
+            <option value="Humanities">
+            <option value="Philosophy and Religious Studies">
+            <option value="Theology">
+            <option value="Anthropology and Archaeology">
+            <option value="Art History">
+            <option value="History">
+            <option value="Culinary Arts">
+            <option value="Pre-Law and Legal Studies">
+            <option value="Public Policy">
+            <option value="Physical Sciences">
+            <option value="Astronomy and Astrophysics">
+            <option value="Meteorology">
+            <option value="Chemistry">
+            <option value="Physics">
+            <option value="Psychology">
+            <option value="Social Work">
+            <option value="Economics">
+            <option value="Political Science and Government">
+            <option value="Sociology">
+            <option value="Miscellaneous Social Sciences">
+            <option value="Other">
+        </datalist>
         <div id="authid" class="hidden" data-id="{{userinfo['user_id']}}"></div>
         <div id="error" class="hidden">Something went wrong!</div>
-        <form id="form">
-            <h3>
-                Name:
-                <input type="text" id="name"/>
-            </h3>
-            <h3>
-                Email:
-                <input type="text" id="email"/>
-            </h3>
-            <h3>
-                Zip Code:
-                <input type="text" id="zip_code"/>
-            </h3>
-            <h3>
-                Skills:
-                <input type="text" id="skills"/>
-            </h3>
-            <h3>
-                Goals:
-                <input type="text" id="goals"/>
-            </h3>
-            <h3>
-                Website:
-                <input type="text" id="website"/>
-            </h3>
-            <h3>
-                Address:
-                <input type="text" id="address"/>
-            </h3>
-            <h3>
-                Description:
-                <input type="text" id="description"/>
-            </h3>
-        </form>
-        <a href='/profile/business/display'>
-            <button class="submit">Submit</button>
-        </a>
+        <div style="text-align: center; margin:auto; margin-bottom: 10%; margin-top: 3%; width:50%; background-color: whitesmoke; border-radius: 8px; padding:3%;">
+            <form id="form">
+                <h3>
+                    <input type="text" id="name" placeholder="Name" required/>
+                </h3>
+                <h3>
+                    <input type="text" id="email" placeholder="Email" required/>
+                </h3>
+                <h3>
+                    <input type="text" id="zip_code" placeholder="Zip Code" required/>
+                </h3>
+                <h3>
+                    <input type="text" id="skills" list="majors" placeholder="Relevant Area of Study" required/>
+                </h3>
+                <h3>
+                    <input type="text" id="goals" placeholder="Describe what you wish to be accomplished" required/>
+                </h3>
+                <h3>
+                    <input type="text" id="website" placeholder="Website"/>
+                </h3>
+                <h3>
+                    <input type="text" id="address" placeholder="Address"/>
+                </h3>
+                <h3>
+                    <input type="text" id="description" placeholder="Describe your business"/>
+                </h3>
+            </form>
+            <a href='/profile/business/display'>
+                <button class="submit">Submit</button>
+            </a>
+        </div>
+        
     </body>
     <script>
         const button = document.querySelector('.submit');

@@ -13,14 +13,25 @@
 
   <body>
     <div id="error" class="hidden">Something went wrong!</div>
+    
+    <div class="top-bar" style="margin-top:2%">
+      <p style="float:left;margin-left:10%">My Profile</p>
+      <a href="/dashboard/display">
+        <button class="normal-button">Back to dashboard</button>
+      </a>
+      <a href="/profile/student/edit">
+        <button class="normal-button">Update</button>
+      </a>
+      <a href="/logout">
+        <button class="delete-button" id="normal-button" data-id="{{ student_id }}">Delete</button>
+      </a>
+    </div>
 
-    <h1 id="header" data-id="{{ student_id }}">My Profile</h1>
-
+    <h1 id="header" data-id="{{ student_id }}"></h1>
     <div id = "data"></div>
 
     <div class="profile-header">
       <h1 id="name" style="text-align: left; margin-left: 20px"></h1>
-      <p style="text-align:left; margin-left: 20px;">Student Status</p>
     </div>
 
     <div class="float-container">
@@ -33,17 +44,6 @@
       </div>
     </div>
 
-    <div>
-      <a href="/dashboard/display">
-        <button>Back to dashboard</button>
-      </a>
-      <a href="/profile/student/edit">
-        <button>Update</button>
-      </a>
-      <a href="/logout">
-        <button class="delete-button" data-id="{{ student_id }}">Delete</button>
-      </a>
-    </div>
 
     <script>
       function createDiv(description, data) {

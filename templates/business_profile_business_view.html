@@ -14,8 +14,25 @@
   <body>
     <div id="error" class="hidden">Something went wrong!</div>
 
-    <h1 id="header" data-id="{{ business_id }}">My Profile</h1>
+    <div class="top-bar">
+      <p style="float:left;margin-left:10%">Business Profile</p>
+      <a href="/business/search">
+        <button class="normal-button">Search</button>
+      </a>
+      <a href="/profile/business/edit">
+        <button class="normal-button">Update</button>
+      </a>
+      <a href="/logout">
+        <button class="delete-button" id="normal-button" data-id="{{ business_id }}">Delete</button>
+      </a>
+      <a href='/logout'>
+        <button class="normal-button">
+          Sign Out
+        </button>
+      </a>
+    </div>
 
+    <h1 id="header" data-id="{{ business_id }}"></h1>
     <div id = "data"></div>
 
     <div class="profile-header">
@@ -33,22 +50,7 @@
       </div>
     </div>
 
-    <div>
-      <a href="/business/search">
-        <button>Search</button>
-      </a>
-      <a href="/profile/business/edit">
-        <button>Update</button>
-      </a>
-      <a href="/logout">
-        <button class="delete-button" data-id="{{ business_id }}">Delete</button>
-      </a>
-      <a href='/logout'>
-        <button>
-          Sign Out
-        </button>
-      </a>
-    </div>
+    
 
     <script>
       function createDiv(description, data) {

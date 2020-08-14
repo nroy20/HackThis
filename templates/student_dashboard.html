@@ -37,47 +37,46 @@
 
     <div class="top-bar">
       <a href="/student/search">
-        <button>
+        <button class="normal-button">
           Search
         </button>
       </a>
       
       <a href='/profile/student/display'>
-        <button>
+        <button class="normal-button">
           My Profile
         </button>
       </a>
 
       <a href='/logout'>
-        <button>
+        <button class="normal-button">
           Sign Out
         </button>
       </a>
     </div>
 
-    <h1 id="header" data-id="{{ student_id }}">My Dashboard</h1>
+    <h1 id="header" data-id="{{ student_id }}">Welcome, {{ student_name }}</h1>
 
     <div class="float-container">
 
-      <div class="float-child">
-        <h2>Jobs I've applied to</h2>
-        <div class="jobs_applied">
-          <h3>
-            Add here to keep track:
-            <input type="text" id="businesses"/>
-          </h3>
+      <div id="float-child">
+        <div class="widget" id="jobs_applied">
+          <h2>Businesses You've Contacted</h2>
+          <h3>Add here to keep track:</h3>
+          <input type="text" id="businesses"/>
           <button class="submit">Submit</button>
           <div id="business-names"></div>
         </div>
-      </div>
-
-      <div class="float-child">
-        <h2>Recommended Jobs</h2>
-        <div class="recommended"></div>
+        <div class="widget" id="jobs_recommended">
+          <h2>Recommended Jobs</h2>
+          <div class="recommended"></div>
+        </div>
       </div>
       
-      <div class="float-child">
-        <div id="map">
+      <div id="float-child">
+        <div class="widget">
+          <h2 id="header">Businesses Near You</h2>
+          <div id="map"></div>
         </div>
       </div>
     </div>
