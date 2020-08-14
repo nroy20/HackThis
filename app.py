@@ -36,7 +36,7 @@ def get_business_id_from_auth_id():
     return business.id
 
 def create_app(test_config=None):
-    app = Flask(__name__)
+    app = Flask(__name__, static_folder="templates")
     setup_db(app)
     oauth = OAuth(app)
     app.secret_key = "temp key"
