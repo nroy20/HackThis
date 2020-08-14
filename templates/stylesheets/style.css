@@ -1,0 +1,266 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #BCD5E6;
+  height:100%;
+}
+
+p {
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  text-align: center;
+  color: #50008d;
+}
+
+h3 {
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  color: #50008d;
+}
+
+h1 {
+  font-size: 0.8in;
+  margin-bottom: 0px;
+  color: #50008d;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+h2 {
+  color: #50008d;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+#header{
+  text-align: center;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.float-container {
+  padding: 20px;
+}
+
+#float-child {
+  width: 45%;
+  float: left;
+  padding: 20px;
+}  
+
+.widget {
+  padding: 20px;
+  background-color: #DED2F7;
+  border-radius: 10px;
+  margin: 1%;
+}
+
+ul {
+  list-style-type: none;
+}
+
+li {
+  background-color: #F2F8FC;
+  color: #50008d;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  border-radius: 5px;
+  border: 2px grey;
+  margin: 1%;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+#map {
+  width: 500px;
+  height: 400px;
+}
+
+.top-bar {
+  background-color: #DED2F7;
+  text-align:center;
+  margin-left: 0px;
+  margin-right: 0px;
+  width: 100%;
+}
+
+.home-buttons {
+  text-align: center;
+  margin-top: 5%;
+}
+
+/*buttons*/
+
+.normal-button {
+  background-color:#DED2F7;
+  color: #50008d;
+  border:3px black;
+  padding: 15px 32px;
+  margin: 0px;
+  text-align: center;
+  border-radius: 8px;
+  transition-duration: 0.4s;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+.normal-button:hover {
+  background-color:#B166FA;
+}
+
+#normal-button {
+  background-color:#DED2F7;
+  color: #50008d;
+  border:3px black;
+  padding: 15px 32px;
+  margin: 0px;
+  text-align: center;
+  border-radius: 8px;
+  transition-duration: 0.4s;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+#normal-button:hover {
+  background-color:#B166FA;
+}
+
+.home-button {
+  background-color:#DED2F7;
+  text-align: center;
+  border-radius: 8px;
+  border: none;
+  color: #50008d;
+  transition-duration: 0.4s;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-size: 300;
+  padding: 30px 60px;
+  margin: 20px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.home-button:hover {
+  background-color:#B166FA;
+}
+
+section {
+  padding: 0 7%;
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#home-page {
+  background-image: url('georgie-cobbs-bKjHgo_Lbpo-unsplash.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+}
+
+#explanation {
+  height: 260vh;
+}
+
+#contact {
+  height: 25vh;
+  background-color: #50008d;
+  text-align: center;
+  color: white;
+}
+
+.about {
+  text-align: center;
+}
+
+/*Profile page*/
+
+.profile-header {
+  padding-left: 15%; 
+  padding-right: 20%; 
+  border-bottom: 5px solid #50008d;
+}
+
+
+/*inputs*/
+
+input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  background-color: #dde3eb;
+}
+
+input:focus {
+  border: 3px solid #ccc;
+}
+
+select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  background-color: #dde3eb;
+}
+
+.search-form-input {
+  float:left;
+  width:20%;
+  margin:2%;
+}
+
+.icon {
+  max-width: 100%;
+}
+
+#about {
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  color: #50008d
+}
+
+#interests {
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  color: #50008d
+}
+
+#qualifications {
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  color: #50008d
+}
+
+.submit {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  background-color: #dde3eb; 
+}
+
+#result {
+  background-color: #dde3eb;
+  color: #50008d;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  border-radius: 5px;
+  border: 2px grey;
+  margin:1%;
+  margin-left: 10%;
+  margin-right: 10%;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+#contact-info {
+  height:30vh;
+  background-color: #50008d;
+  text-align:center;
+}
+
+#login-button {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+#search {
+  width: 100%;
+}
+
+.hidden {
+  display: none;
+}
