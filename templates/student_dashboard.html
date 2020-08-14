@@ -143,10 +143,10 @@
     function appendData(results){
       var container = document.getElementById("recommended");
       var business_names = results.recommended;
-      console.log("name: " + results.name)
+      console.log("count: " + results.recommended_count)
       for (var i = 0; i < results.recommended_count; i++) {
         var name = createDiv(business_names[i].name);
-        console.log("name: " + name)
+        console.log("name: " + business_names[i].name)
         container.appendChild(name);
       }
     }
