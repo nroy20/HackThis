@@ -560,7 +560,7 @@ def create_app(test_config=None):
             if goals:
                 business.goals = goals
             if website:
-                business.qualifications = qualifications
+                business.website = website
             if address:
                 business.address = address
             if description:
