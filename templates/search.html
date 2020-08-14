@@ -103,7 +103,7 @@
     <div style="width:70%;margin:auto;">
       <form id="form">
         <div class="search-form-input">
-          <input type="text" id="keywords" placeholder="Search" required>
+          <input type="text" id="keywords" placeholder="Search">
         </div>
         <div class="search-form-input">
           <input type="text" id="zipcode" placeholder="Zip Code">
@@ -134,7 +134,7 @@
         var id = data[i].id;
         var link = document.createElement("a");
         link.setAttribute('href', '/profile/business/' + id + '/display');
-        link.innerHTML = "name: " + data[i].name;
+        link.innerHTML = data[i].name;
         var divContainer = document.createElement("div");
         divContainer.setAttribute("id", "result");
         divContainer.appendChild(link);
