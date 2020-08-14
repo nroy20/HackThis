@@ -253,37 +253,66 @@
         background-color: #50008d;
         text-align:center;
       }
+
+      body {
+        margin:0;
+        padding:0;
+        height:100%;
+      }
     </style>
   </head>
 
   <body>
+    <section id="home-page">
 
-    <div>
-      <button onclick="window.location.href='about.html';">
-        About Us
-      </button>
-  
-      <button onclick="window.location.href='contact.html';">
-        Contact Us
-      </button>
+      <h1 id="header" style="margin-top: 20%;">Business Name</h1>
+
+      <div class="home-buttons">
+        <a href="/dashboard/student/1/display">
+          <button class="home-button">
+            Students
+          </button>
+        </a>
+        <a href="/profile/business/1/display">
+          <button class="home-button">
+            Businesses
+          </button>
+        </a>
+      </div>
+  </section>
+
+  <section id="explanation">
+    <div id="float-child">
+      <div class="about">
+        <img class="icon" src="icon_1.PNG">
+      </div>
+      <div class="about">
+        <h2>2</h2>
+        <p>Connect with small businesses in your community</p>
+      </div>
+      <div class="about">
+        <img class="icon" src="icon_3.PNG">
+      </div>
     </div>
-
-    <h1 id="header">Business Name</h1>
-
-    <div>
-      <a href="/student/login">
-        <button>
-          Students
-        </button>
-      </a>
-      <a href="/business/login">
-        <button>
-          Businesses
-        </button>
-      </a>
+    <div id="float-child">
+      <div class="about">
+        <img class="icon" src="info_1.PNG">
+      </div>
+      <div class="about">
+        <img class="icon" src="icon_2.PNG">
+      </div>
+      <div class="about">
+        <h2>3</h2>
+        <p>Get lifechanging experience for your resume</p>
+      </div>
     </div>
+  </section>
 
-    <p>Here is some information about our business! :)</p>
+  <section id="contact-info">
+    <h3 style="color:aliceblue">Contact Us</h3>
+    <p style="color:aliceblue">email@email.com</p>
+    <p style="color:aliceblue">000-000-0000</p>
+  </section>
 
     <script>
 
