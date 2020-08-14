@@ -147,6 +147,8 @@
       console.log("count: " + results.recommended_count)
       for (var i = 0; i < results.recommended_count; i++) {
         var name = createDiv(business_names[i]);
+        name.setAttribute("id", "result")
+        name.setAttribute("style", "text-align: center")
         console.log("name: " + business_names[i])
         container.appendChild(name);
       }
