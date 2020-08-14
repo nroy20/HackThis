@@ -4,6 +4,7 @@ ComCafe is a web application that connects students looking for experience with 
 Please be aware that there is occasionally a small glitch causing a 404 error after setting your profile, just refresh your browser and it'll work fine.
 
 Link to website: community-cafe.herokuapp.com
+Background image creator: https://unsplash.com/@georgie_cobbs
 
 ## Motivation
 Thanks to the COVID-19 crisis, students like us have been stuck at home without much to do. Our educations have been disrupted, and many of us have lost opportunities to learn new skills and gain experience through jobs, internships and research. At the same time, small businesses have been devastated by the consequences of the pandemic and are struggling to keep their doors open. For this hackathon, we saw a chance to help solve both of these issues at once. With our app, students can find ways to develop skills related to their major, interests and/or career, all while lifting up their community and helping small businesses in their time of need. We hope that this project will allow students to keep learning and growing through difficult times, and that we can make a positive impact on our communities at the same time.
@@ -24,4 +25,5 @@ After ensuring that Postgres is running, set the database path in Models.py.
 
 Run:
 `FLASK_APP=app.py flask run`
+
 
