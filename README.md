@@ -1,6 +1,7 @@
 # ComCafe
 
 ComCafe is a web application that connects students looking for experience with small businesses looking for help. Students and businesses can set up a profile and search for matches based on location, goals and skills. Feel free to set up an account and try it out! We suggest that you set your zip code as 61801, as we will be including an example business with that zip code so users will have at least one business recommended to them.
+Please be aware that there is occasionally a small glitch causing a 404 error after setting your profile, just refresh your browser and it'll work fine.
 
 Link to website: community-cafe.herokuapp.com
 
