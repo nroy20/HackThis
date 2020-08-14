@@ -1,6 +1,6 @@
 # ComCafe
 
-ComCafe is a web application that connects students looking for experience with small businesses looking for help. Students and businesses can set up a profile and search for matches based on location, goals and skills. Feel free to set up an account and try it out!
+ComCafe is a web application that connects students looking for experience with small businesses looking for help. Students and businesses can set up a profile and search for matches based on location, goals and skills. Feel free to set up an account and try it out! We recommend you set your zip code as 61801, as we will be including an example business with that zip code.
 
 Link to website: community-cafe.herokuapp.com
 

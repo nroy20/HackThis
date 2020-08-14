@@ -135,16 +135,6 @@
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBH7pSV9JwtPJkrpUQ2nqmI9PBNrVMv0Kk&callback=initMap">
   </script>
   <script>
-    function appendData(results){
-      var container = document.getElementById("recommended");
-      var business_names = results.recommended;
-      console.log("count: " + results.recommended_count)
-      for (var i = 0; i < results.recommended_count; i++) {
-        var name = createDiv(business_names[i]);
-        console.log("name: " + business_names[i])
-        container.appendChild(name);
-      }
-    }
     window.onload = function(e) {
       var header = document.getElementById("header")
       var studentId = header.getAttribute("data-id")
@@ -155,7 +145,6 @@
                 return response.json();
             }) 
             .then(function(jsonResponse) {
-                appendData(jsonResponse)
                 console.log(jsonResponse);
                 document.getElementById("error").className = 'hidden';
             })
@@ -168,6 +157,7 @@
     function createDiv(data) {
         var div = document.createElement("div")
         div.innerHTML = data
+        div.setAttribute("id", "result")
         return div;
       }
     button.onclick = function(e) {
