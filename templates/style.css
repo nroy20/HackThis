@@ -27,7 +27,7 @@ h2 {
 
 #header{
   text-align: center;
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 .float-container {
@@ -125,6 +125,7 @@ li {
   font-size: 300;
   padding: 30px 60px;
   margin: 20px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
 .home-button:hover {
@@ -146,7 +147,7 @@ section {
 }
 
 #explanation {
-  height: 200vh;
+  height: 260vh;
 }
 
 #contact {
@@ -195,8 +196,8 @@ select {
 
 .search-form-input {
   float:left;
-  width:23%;
-  margin:1%;
+  width:20%;
+  margin:2%;
 }
 
 .icon {
@@ -219,7 +220,6 @@ select {
 }
 
 .submit {
-  width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -244,4 +244,14 @@ select {
   height:30vh;
   background-color: #50008d;
   text-align:center;
+}
+
+#login-button {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+#search {
+  width: 100%;
 }
