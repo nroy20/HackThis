@@ -101,11 +101,20 @@
     <h2 id="header" style="margin-top: 3%;">Find Businesses</h2>
     <div style="width:70%;margin:auto;">
       <form id="form">
-        <input type="text" id="keywords" placeholder="Search">
-        <input type="text" id="zipcode" placeholder="Zip Code">
-        <input type="text" id="skill" list=majors placeholder="Major">
+        <div class="search-form-input">
+          <input type="text" id="keywords" placeholder="Search">
+        </div>
+        <div class="search-form-input">
+          <input type="text" id="zipcode" placeholder="Zip Code">
+        </div>
+        <div class="search-form-input">
+          <input type="text" id="skill" list=majors placeholder="Major">
+        </div>
+        <div class="search-form-input">
+          <button class="submit" id="search">Submit</button>
+        </div>  
       </form>
-      <button class="submit">Submit</button>
+      
     </div>
     
     <div id="error" class="hidden">Something went wrong!</div>
