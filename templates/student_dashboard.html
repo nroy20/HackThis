@@ -135,12 +135,6 @@
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBH7pSV9JwtPJkrpUQ2nqmI9PBNrVMv0Kk&callback=initMap">
   </script>
   <script>
-    function createDiv(data) {
-        var div = document.createElement("div")
-        div.innerHTML = data
-        return div;
-      }
-      
     function appendData(results){
       var container = document.getElementById("recommended");
       var business_names = results.recommended;
@@ -178,7 +172,7 @@
       }
     button.onclick = function(e) {
       var entry = document.getElementById("businesses").value
-      var container = document.getElementById("business_names")
+      var container = document.getElementById("business-names")
       var div = createDiv(entry)
       container.appendChild(div)
     }
