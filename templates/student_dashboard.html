@@ -135,6 +135,16 @@
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBH7pSV9JwtPJkrpUQ2nqmI9PBNrVMv0Kk&callback=initMap">
   </script>
   <script>
+    function appendData(results){
+      var container = document.getElementById("recommended");
+      var business_names = results.recommended;
+      console.log("count: " + results.recommended_count)
+      for (var i = 0; i < results.recommended_count; i++) {
+        var name = createDiv(business_names[i]);
+        console.log("name: " + business_names[i])
+        container.appendChild(name);
+      }
+    }
     window.onload = function(e) {
       var header = document.getElementById("header")
       var studentId = header.getAttribute("data-id")
@@ -145,6 +155,7 @@
                 return response.json();
             }) 
             .then(function(jsonResponse) {
+                appendData(jsonResponse)
                 console.log(jsonResponse);
                 document.getElementById("error").className = 'hidden';
             })
@@ -154,17 +165,17 @@
             });
       }
     const button = document.querySelector('.submit');
-    function createDiv(data) {
+    function createNewDiv(data) {
         var div = document.createElement("div")
         div.innerHTML = data
-        div.setAttribute("id", "result")
-        div.setAttribute("style", "text-align: center")
         return div;
       }
     button.onclick = function(e) {
       var entry = document.getElementById("businesses").value
       var container = document.getElementById("business-names")
-      var div = createDiv(entry)
+      var div = createNewDiv(entry)
+      div.setAttribute("id", "result")
+      div.setAttribute("style", "text-align: center")
       container.appendChild(div)
     }
     /*
