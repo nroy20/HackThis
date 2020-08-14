@@ -682,7 +682,7 @@ def create_app(test_config=None):
         return jsonify({
             "success": False,
             "error": 404,
-            "message": "resource not found"
+            "message": "resource not found - PLEASE REFRESH PAGE"
         }), 404
 
     @app.errorhandler(400)
