@@ -14,7 +14,7 @@
   <body>
     <div id="error" class="hidden">Something went wrong!</div>
 
-    <h1 id="header" data-id="{{ student_id }}">My Profile</h1>
+    <h1 id="header" data-id="{{ student_id }}"></h1>
 
     <div id = "data"></div>
 
@@ -40,9 +40,9 @@
     </div>
 
     <script>
-      function createDiv(description, data) {
+      function createDiv(data) {
         var div = document.createElement("div")
-        div.innerHTML = description + ": " + data
+        div.innerHTML = data
         return div;
       }
       function createH1(data) {
@@ -53,10 +53,10 @@
       function appendData(results) {
         var divs = [
           createH1(results.name),
-          createDiv("zip code", results.zip_code),
-          createDiv("email", results.email),
-          createDiv("interests", results.interests),
-          createDiv("qualifications", results.qualifications)
+          createDiv(results.zip_code),
+          createDiv(results.email),
+          createDiv("Major: " + results.interests),
+          createDiv(results.qualifications)
         ]
 
         var container1 = document.getElementById("name");

@@ -14,7 +14,7 @@
   <body>
     <div id="error" class="hidden">Something went wrong!</div>
 
-    <h1 id="header" data-id="{{ business_id }}">My Profile</h1>
+    <h1 id="header" data-id="{{ business_id }}"></h1>
 
     <div id = "data"></div>
 
@@ -28,7 +28,6 @@
       </div>
       <div id="float-child">
         <div id="about" class="widget"></div>
-        <p>Looking for:</p>
         <div id="skills" class="widget"></div>
       </div>
     </div>
@@ -40,9 +39,9 @@
     </div>
 
     <script>
-      function createDiv(description, data) {
+      function createDiv(data) {
         var div = document.createElement("div")
-        div.innerHTML = description + ": " + data
+        div.innerHTML = data
         return div;
       }
       function createH1(data) {
@@ -53,13 +52,13 @@
       function appendData(results) {
         var divs = [
           createH1(results.name),
-          createDiv("description", results.description),
-          createDiv("email", results.email),
-          createDiv("address", results.address),
-          createDiv("skills", results.skills),
-          createDiv("goals", results.goals),
-          createDiv("website", results.website),
-          createDiv("zip code", results.zip_code),
+          createDiv(results.description),
+          createDiv(results.email),
+          createDiv(results.address),
+          createDiv("Major: " + results.skills),
+          createDiv(results.goals),
+          createDiv(results.website),
+          createDiv(results.zip_code),
         ]
 
         var container1 = document.getElementById("name");

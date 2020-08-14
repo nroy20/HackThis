@@ -15,7 +15,6 @@
     <div id="error" class="hidden">Something went wrong!</div>
     
     <div class="top-bar" style="margin-top:2%">
-      <p style="float:left;margin-left:10%">My Profile</p>
       <a href="/dashboard/display">
         <button class="normal-button">Back to dashboard</button>
       </a>
@@ -46,9 +45,9 @@
 
 
     <script>
-      function createDiv(description, data) {
+      function createDiv(data) {
         var div = document.createElement("div")
-        div.innerHTML = description + ": " + data
+        div.innerHTML = data
         return div;
       }
       function createH1(data) {
@@ -59,10 +58,10 @@
       function appendData(results) {
         var divs = [
           createH1(results.name),
-          createDiv("zip code", results.zip_code),
-          createDiv("email", results.email),
-          createDiv("interests", results.interests),
-          createDiv("qualifications", results.qualifications)
+          createDiv(results.zip_code),
+          createDiv(results.email),
+          createDiv("Major: " + results.interests),
+          createDiv(results.qualifications)
         ]
 
         var container1 = document.getElementById("name");
