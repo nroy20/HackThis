@@ -170,6 +170,18 @@
               document.getElementById("error").className = '';
             });
       }
+    const button = document.querySelector('.submit');
+    function createDiv(data) {
+        var div = document.createElement("div")
+        div.innerHTML = data
+        return div;
+      }
+    button.onclick = function(e) {
+      var entry = document.getElementById("businesses").value
+      var container = document.getElementById("business_names")
+      var div = createDiv(entry)
+      container.appendChild(div)
+    }
     /*
     const button = document.querySelector('.submit');
     button.onclick = function(e) {
