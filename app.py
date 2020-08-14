@@ -665,18 +665,6 @@ def create_app(test_config=None):
     @app.route('/')
     def index():
         return render_template('home.html'), 200
-
-    @app.route('/deleteall', methods=['DELETE'])
-    def delete():
-        students = Student.query.all()
-        businesses = Business.query.all()
-        for student in students:
-            student.delete()
-        for business in businesses:
-            business.delete()
-        return jsonify({
-            'success': True
-        })
         
     #_______________________________error handlers____________________________________
 
